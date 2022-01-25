@@ -1,9 +1,15 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const validator = require('validator')
+const crypto = require('crypto')
 
 const userSchema = new mongoose.Schema(
   {
+    role:{
+      type: String,
+      enum: ['guest', 'host', 'admin'],
+      required: true
+    },
     firstname: {
       type: String,
       required: [true, 'The firstname is mandatory to register'],
@@ -123,6 +129,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: './client/default-user.png',
     },
+    passwordChangedAt: {
+      type: Date
+    },
+    passwordResetToken: {
+      type: String
+    },
+    passwordResetExpires: {
+      type: Date
+    }
   },
   {
     timestamps: true,
@@ -141,9 +156,41 @@ userSchema.pre('save', async function(next){
   next()
 })
 
+userSchema.pre('save', function(next) {
+  if(!this.isModified('password') || this.isNew) return next()
+
+  // To set the propriety "passwordChangedAt" 1sec before assures that the token is really created
+  this.passwordChangedAt = Date.now() - 1000 
+  next()
+})
+
 // VERYFYING THE PASSWORD FOR AUTHENTICATION
 userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
   return await bcrypt.compare(candidatePassword, userPassword)
+}
+
+// TO KNOW IF THE PASSWORD AS BEEN RESET
+userSchema.methods.changesPasswordAfter = function(JWTTimestamps){
+  if(this.passwordChangedAt){
+    const changedTimestamps = parseInt(this.passwordChangedAt.getTime() /1000, 10)
+    /* console.log(changedTimestamps, JWTTimestamps) */
+    return JWTTimestamps < changedTimestamps
+  }
+  // false = not changed
+  return false
+}
+
+// RESET THE TOKEN TO RESET PASSWORD
+userSchema.methods.createPasswordResetToken = function() {
+  const resetToken = crypto.randomBytes(32).toString('hex')
+
+  this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+
+  console.log({resetToken}, this.passwordResetToken)
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000 // validity for 10 min
+
+  return resetToken
+
 }
 
 
