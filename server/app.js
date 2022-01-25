@@ -24,7 +24,6 @@ app.all('*', (req, res, next) => {
 /*   const err = new Error(`Can't find ${req.originalUrl} on this server`)
   err.status = 'fail'
   err.statusCode = 404 */
-
   next(new AppError(`Can't find ${req.originalUrl} on this server`)) // if there is an error the next function goes directly to err middleware handler. The other middleware will never run ! 
 }) 
 

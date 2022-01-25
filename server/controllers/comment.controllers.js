@@ -69,7 +69,7 @@ module.exports.updateComment = catchAsync(async (req, res, next) => {
   })
 })
 
-module.exports.deleteComment = catchAsync(async (req, res) => {
+module.exports.deleteComment = catchAsync(async (req, res, next) => {
   const deleteComment = await CommentModel.findByIdAndDelete(req.params.id)
 
   // Look if the comment exists or not

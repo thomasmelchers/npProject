@@ -4,7 +4,7 @@ class AppError extends Error {
 
         this.statusCode = statusCode
         this.status = `${statusCode}`.startsWith('4')? 'Fail' : 'Error'
-        this.isOperational = true
+        this.isOperational = true // undefined route or data
 
         Error.captureStackTrace(this, this.constructor)
     }

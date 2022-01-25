@@ -87,6 +87,18 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       minLength: [6, 'The password should have at least 6 characters'],
+      select: false
+    },
+    passwordConfirm:{
+      type: String,
+      trim: true,
+      validate: {
+        // only work with CREATE/SAVE and not with findbyoneandupdate
+        validator: function(el) {
+          return el  === this.password
+        },
+        message: 'Both password don\'t match'
+      }
     },
     phoneNb: {
       type: String,
@@ -116,6 +128,24 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   }
 )
+
+// BCRYPT THE PASSWORD
+userSchema.pre('save', async function(next){
+  // works if password has been modified
+  if (!this.isModified('password')) return next()
+
+  // Hash the password with cost of 12
+  this.password = await bcrypt.hash(this.password, 12)
+  // Delete the passwordConfirm
+  this.passwordConfirm = undefined
+  next()
+})
+
+// VERYFYING THE PASSWORD FOR AUTHENTICATION
+userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+  return await bcrypt.compare(candidatePassword, userPassword)
+}
+
 
 const UserModel = mongoose.model('User', userSchema)
 
