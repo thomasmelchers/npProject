@@ -30,16 +30,17 @@ module.exports.protect = catchAsync(async (req, res, next) => {
     /* console.log(decoded) */
   
     // 3. Check if user still exists
-    const freshUser = await UserModel.findById(decoded.id)
-    if (!freshUser){
+    const currentUser = await UserModel.findById(decoded.id)
+    if (!currentUser){
       return next(new AppError('The token belonging to this user does no longer exist', 401))
     }
     // 4. check if user changed password after the token was released
-    if (freshUser.changesPasswordAfter(decoded.iat)) {
+    if (currentUser.changesPasswordAfter(decoded.iat)) {
       return (next ( new AppError('You recently changes your password! Please, log in again.', 401)))
     }
   
     // Granting access to the route
-    req.user = freshUser
+    req.user = currentUser
+    res.locals.user = currentUser
     next()
   })

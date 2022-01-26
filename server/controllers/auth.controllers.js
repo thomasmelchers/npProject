@@ -15,6 +15,23 @@ const signToken = (id) => {
   })
 }
 
+const createSendToken = (user, statusCode, res) => {
+  const token = signToken(user._id)
+  const cookieOptions = {
+    maxAge,
+    httpOnly: true,
+  }
+  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true
+  res.cookie('jwt', token, cookieOptions)
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user,
+    },
+  })
+}
+
 // USER CREATION - SIGN UP
 
 module.exports.signUp = catchAsync(async (req, res, next) => {
@@ -35,7 +52,9 @@ module.exports.signUp = catchAsync(async (req, res, next) => {
     passwordConfirm: req.body.passwordConfirm,
   })
 
-  const token = signToken(newUser._id)
+  createSendToken(newUser, 201, res)
+
+  /* const token = signToken(newUser._id)
 
   res.status(201).json({
     status: 'success',
@@ -43,7 +62,7 @@ module.exports.signUp = catchAsync(async (req, res, next) => {
     data: {
       user: newUser,
     },
-  })
+  }) */
   /* } catch (err) {
     res.status(404).json({
       status: 'failed',
@@ -76,11 +95,7 @@ module.exports.login = catchAsync(async (req, res, next) => {
   /* console.log(user) */
 
   // 3. if everything is ok, send the token to the client
-  const token = signToken(user._id)
-  res.status(200).json({
-    status: 'success',
-    token,
-  })
+  createSendToken(user, 200, res)
 })
 
 // FORGOT PASSWORD
@@ -157,11 +172,34 @@ module.exports.resetPassword = catchAsync(async (req, res, next) => {
   await user.save()
 
   // 3. Update changedPasswordAt proprety for the current user
-
   //4. Log the user in, send JWT
-  const token = signToken(user._id)
+  createSendToken(user, 200, res)
+})
+
+module.exports.updatePassword = catchAsync(async (req, res, next) => {
+  // 1. Get the user
+  // we are not using findbyidandupdate -> because he won't be verified !
+  const user = await UserModel.findById(req.user._id)
+
+  // 2. Check if the current password posted is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(
+      new AppError('Your current password is wrong! Please try again.', 401)
+    )
+  }
+
+  // 3. If correct, update password
+  user.password = req.body.password
+  user.passwordConfirm = req.body.passwordConfirm
+  await user.save()
+
+  // 4. Log user in, send JWT
+  createSendToken(user, 200, res)
+})
+
+module.exports.logout = (req, res) => {
+  res.cookie('jwt', '', { maxAge: 1, httpOnly: true })
   res.status(200).json({
     status: 'success',
-    token,
   })
-})
+}

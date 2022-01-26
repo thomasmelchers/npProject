@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 const commentSchema = new mongoose.Schema({
     user_id: {
-        type: String
+        type: String,
+        required: true
     },
     accomodation_id:{
         type: String

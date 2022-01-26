@@ -93,7 +93,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       trim: true,
       minLength: [6, 'The password should have at least 6 characters'],
-      select: false
+      /* select: false */
     },
     passwordConfirm:{
       type: String,
@@ -116,10 +116,13 @@ const userSchema = new mongoose.Schema(
       type: [String],
       default: "Which language do you speak? Don't forget to register it",
     },
+    accomodationOwned:{
+      type:[String]
+    },
     likes: {
       type: [String],
     },
-    post_id: {
+    comment_id: {
       type: [String],
     },
     reservationMake_id: {
@@ -127,7 +130,7 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: './client/default-user.png',
+      default: './client/assets/pictures/users/default-user.png',
     },
     passwordChangedAt: {
       type: Date
@@ -166,6 +169,7 @@ userSchema.pre('save', function(next) {
 
 // VERYFYING THE PASSWORD FOR AUTHENTICATION
 userSchema.methods.correctPassword = async function(candidatePassword, userPassword) {
+/*   console.log('this is a candidate pass' + candidatePassword, 'this is a userpass' + userPassword) */
   return await bcrypt.compare(candidatePassword, userPassword)
 }
 

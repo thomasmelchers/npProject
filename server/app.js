@@ -1,10 +1,13 @@
 const express = require('express')
 const morgan = require('morgan')
+const xss = require('xss-clean')
+const mongoSanitize = require('express-mongo-sanitize')
 
 const AppError = require('./utils/appError')
 const errorController = require('./controllers/error.controllers')
 const userRoutes = require('./routes/user.routes')
 const commentRoutes = require('./routes/comment.routes')
+const accomodationRoutes = require('./routes/accomodation.routes')
 
 const app = express()
 
@@ -15,10 +18,17 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(express.json())
 
+// DATA SANITIZATION AGAINST NOSQL QUERY INJECTION
+app.use(mongoSanitize())
+
+// DATA SANITIZATION AGAINST XSS (html injection)
+ app.use(xss())
+
 // MOUNTING THE ROUTES
 
 app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/comments', commentRoutes)
+app.use('/api/v1/accomodations', accomodationRoutes)
 
 app.all('*', (req, res, next) => {
 /*   const err = new Error(`Can't find ${req.originalUrl} on this server`)
