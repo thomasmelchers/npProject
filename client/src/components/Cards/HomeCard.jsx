@@ -1,11 +1,13 @@
 import React from 'react';
 import { CardActionArea, Card, CardMedia, CardContent, Typography } from '@mui/material'
-import axios from 'axios'
+import { ThemeProvider } from '@mui/material';
+import customTheme from '../../assets/theme';
 
 
 const HomeCard = (props) => {
   return (
-    <Card sx={{ maxWidth: 500 }}>
+    
+    <Card sx={{ maxWidth: 500, height: 400}}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -15,11 +17,16 @@ const HomeCard = (props) => {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            {props.cottageName} - {props.city}
+            {props.cottageName}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography gutterBottom variant="h6" component="div">
+            {props.city} - {props.country}
+          </Typography>
+          <Typography variant="body2" color="text.secondary"> 
+            {props.ratings} /5
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mt={1.5}>
             {props.summary}
-            {props.ratings}
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -21,11 +21,6 @@ const Home = () => {
   }, [])
   console.log(accomodation)
 
-  /* return <div>{JSON.stringify(accomodation)}</div> */
-
-  /* const cottageName = accomodation[0].cottageName
-  const summary = accomodation[0].summary */
-
   return (
     <main>
       <Banner></Banner>
@@ -59,7 +54,7 @@ const Home = () => {
           md={3}
           key={index}
         >
-          <HomeCard cottageName={e.cottageName} city={e.city} summary={e.summary} picture={e.picture} ratings={e.ratings} key={index}></HomeCard>
+          <HomeCard cottageName={e.cottageName} city={e.city} country={e.country} summary={e.summary} picture={e.picture} ratings={e.ratings} key={index}></HomeCard>
         </Grid>))}
       </Grid>
     </main>
