@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
 import TextField from '@mui/material/TextField'
-import { Box, Grid, Container, Typography} from '@mui/material'
+import { Box, Grid, Container, Typography } from '@mui/material'
 import ButtonMui from '../Button/Button'
 import { ThemeProvider } from '@mui/material'
 import customTheme from '../../assets/theme'
 import axios from 'axios'
-import { AuthContext} from '../../context/AuthContext'
+import { AuthContext } from '../../context/AuthContext'
 
 export default function FormSignUp() {
-const authContext = useContext(AuthContext)
+  const authContext = useContext(AuthContext)
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -23,31 +23,51 @@ const authContext = useContext(AuthContext)
 
   const submitHandler = async (event) => {
     event.preventDefault()
-    
+
+    const emailError = document.querySelector('.error')
+    const passwordError = document.querySelector('.error')
+
     const userLogin = {
-      email:email,
-      password:password
+      email: email,
+      password: password,
     }
-    console.log(userLogin)
+    /* console.log(userLogin) */
 
     axios({
       method: 'post',
       url: `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
-      data: userLogin
+      data: userLogin,
       /* withCredentials: false, */
     })
     .then((res)=> {
-      console.log(res.data.token)
-    console.log(res.data)
-      authContext.login(res.data.token)
-     console.log(authContext) })
+      /* console.log(res.data.token)
+    console.log(res.data) */
+      return [authContext.login(res.data.token), authContext.getUser(res.data.data.user) ] 
+      /* console.log(authContext) */}
+      )
       /* .then((res) =>  (console.log(res.data.token) + localStorage.setItem('token', res.data.token) + (window.location = '/'))) */
       .catch((err) => console.error(err))
+      /* console.log(authContext) */
+      /* .then((res) => { */
+        
+        /* console.log(res.data.data.user) */
+        /* if (res.data.error) {
+          emailError.innerHTML = res.data.error.message
+          passwordError.innerHTML = res.data.error.password
+        }else{{ */
+          /* return authContext.login(res.data.token)
+          console.log(authContext) */
+          /* return authContext.user(res.data.data.user) */
+          /* window.location = ('/') */
+          
+        /* } */
+         
+        /* console.log(res.data.token)
+        console.log(res.data) */
+      /* })
+      .catch((err) => console.error(err)) */
+  }
 
-      
-  } 
-
-    
   return (
     <ThemeProvider theme={customTheme}>
       <Container>
@@ -63,9 +83,17 @@ const authContext = useContext(AuthContext)
               alignItems: 'center',
             }}
           >
-            <Typography textAlign={'center'} variant="h4" color="secondary" mb={2}>
+            <Typography
+              textAlign={'center'}
+              variant="h4"
+              color="secondary"
+              mb={2}
+            >
               Sign In
             </Typography>
+
+            <div className="error"></div>
+
             <Grid item xs={12} md={7}>
               <TextField
                 label="Email"
@@ -93,7 +121,10 @@ const authContext = useContext(AuthContext)
               />
             </Grid>
             <Grid item xs={12} md={7}>
-              <ButtonMui type={'submit'} /* onClick={(event)=>submitHandler(event)} */  buttonName="Sign In"></ButtonMui>
+              <ButtonMui
+                type={'submit'}
+                buttonName="Sign In"
+              ></ButtonMui>
             </Grid>
           </Grid>
         </Box>
