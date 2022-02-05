@@ -25,7 +25,7 @@ const Research = () => {
       <Container>
       <ThemeProvider theme={customTheme}>
         <Grid container mt={15}>
-        <Typography variant='h2' fontWeight='700' color='primary'>Our Green places in {location} </Typography>
+        <Typography variant='h2' fontWeight='700' color='primary'>Our Green Places in {location} </Typography>
           {accomodation &&
             accomodation.map((e, index) => (
               <Grid item xs={12} key={index} mt={3}>

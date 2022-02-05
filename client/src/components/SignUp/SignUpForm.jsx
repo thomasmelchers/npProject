@@ -10,20 +10,13 @@ import {
   FormControlLabel,
   RadioGroup,
   Radio,
-  Autocomplete,
   MenuItem,
-  unstable_createMuiStrictModeTheme
 } from '@mui/material'
 import { ThemeProvider } from '@mui/material'
 import customTheme from '../../assets/theme'
 import ButtonMui from '../Button/Button'
-/* import listOfCountries from './Contries' */
 import countries from '../../data/countries.json'
-/* import { signUpSchema } from '../../validation/signUpValidation' */
-import * as yup from 'yup'
 import axios from 'axios'
-
-/* const countries = listOfCountries */
 
 const SignUp = () => {
   const [role, setRole] = useState('guest')
@@ -99,7 +92,7 @@ const SignUp = () => {
       role: role,
       firstname: firstname,
       name: name,
-      dateOfBirth: new Date(dateOfBirth),
+      dateOfBirth: dateOfBirth,
       gender: gender,
       address: address,
       number: number,
@@ -116,20 +109,11 @@ const SignUp = () => {
 
     await axios({
       method: 'post',
-      url: `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
-      data: user
+      url: `${process.env.REACT_APP_API_URL}api/v1/users/register`,
+      data: user,
     })
-    .then((res) => {
-      if (res.data.errors) {
-        // renvoyé les erreurs du back (à afficher dans une div)
-        console.log(res.data.errors)
-      } else {
-        // rediriger si submit
-        console.log('submit')
-        window.location = '/'
-      }
-    })
-    .catch((err) => console.log(err))
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err))
 
     setRole('')
     setFirstname('')
@@ -149,15 +133,7 @@ const SignUp = () => {
     <ThemeProvider theme={customTheme}>
       <Container>
         <Box component="form" noValidate onSubmit={submitHandler}>
-          <Box
-            xs={
-              {
-                /*               flexDirection: 'column',
-              justifyContent: 'center',
-              alignItems: 'center', */
-              }
-            }
-          >
+          <Box>
             <Grid container justifyContent="center" spacing={2} mb={2}>
               <Grid item xs={12} align="center">
                 <Typography variant="h4" color="secondary" postion="center">
@@ -225,6 +201,7 @@ const SignUp = () => {
                   required
                   fullWidth
                   variant="outlined"
+                  InputLabelProps={{ shrink: true }}
                   value={dateOfBirth}
                   onChange={DOBChangeHandler}
                 />
@@ -247,21 +224,9 @@ const SignUp = () => {
                     value={gender}
                     onChange={genderChangeHandler}
                   >
-                    <FormControlLabel
-                      value="F"
-                      control={<Radio />}
-                      label="F"
-                    />
-                    <FormControlLabel
-                      value="M"
-                      control={<Radio />}
-                      label="M"
-                    />
-                    <FormControlLabel
-                      value="X"
-                      control={<Radio />}
-                      label="X"
-                    />
+                    <FormControlLabel value="F" control={<Radio />} label="F" />
+                    <FormControlLabel value="M" control={<Radio />} label="M" />
+                    <FormControlLabel value="X" control={<Radio />} label="X" />
                   </RadioGroup>
                 </FormControl>
               </Grid>
@@ -323,12 +288,17 @@ const SignUp = () => {
                   name="country"
                   required
                   select
+                  fullWidth
                   value={country}
                   onChange={countryChangeHandler}
                 >
                   {Object.keys(countries).map((item, pos) => {
                     return (
-                      <MenuItem key={pos} value={item} color= {customTheme.palette.primary.main}>
+                      <MenuItem
+                        key={pos}
+                        value={item}
+                        color={customTheme.palette.primary.main}
+                      >
                         {countries[item]}
                       </MenuItem>
                     )

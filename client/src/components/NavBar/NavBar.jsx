@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {useContext} from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -13,14 +14,16 @@ import MenuItem from '@mui/material/MenuItem'
 import CottageIcon from '@mui/icons-material/Cottage'
 import customTheme from '../../assets/theme'
 import { Link } from '@mui/material'
-import ModalUnstyled from '@mui/base/ModalUnstyled'
-import { styled } from '@mui/system'
-import SignUp from '../SignUp/SignUpForm'
-
-const settings = ['Sign Up', 'Sign In', 'Dashboard', 'Logout']
+import SignUpModal from '../Modals/SignUpModal'
+import SignInModal from '../Modals/SignInModal'
+import getUser_Logout from '../../actions/getUser_Logout'
+import AuthContext from '../../context/AuthContext'
 
 const NavBar = () => {
   // MENU UNDER THE PICTURE
+  const authContext = useContext(AuthContext)
+  const isLoggedIn = authContext.isLoggedIn
+  console.log(authContext)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
@@ -34,48 +37,16 @@ const NavBar = () => {
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const StyledModal = styled(ModalUnstyled)`
-    position: fixed;
-    z-index: 1300;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  `
+  const [open1, setOpen1] = React.useState(false)
+  const handleOpen1 = () => setOpen1(true)
+  const handleClose1 = () => setOpen1(false)
 
-  const Backdrop = styled('div')`
-    z-index: -1;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    -webkit-tap-highlight-color: transparent;
-  `
-
-  const style = {
-    width: {
-      sx: 800,
-      md: 500,
-      lg: 650,
-    },
-    bgcolor: 'white',
-    borderRadius: 3,
-    p: 2,
-    px: 4,
-    pb: 3,
-  }
-
+  
   return (
     <AppBar
-      position="static"
+      position="fixed"
       theme={customTheme}
       color="primary"
-      sx={{ mb: 5 }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -94,7 +65,7 @@ const NavBar = () => {
                 color="secondary"
                 sx={{ mr: 2 }}
               />
-              Eco-Friendly Cottages
+              Green Cottages
             </Typography>
           </Link>
           <Typography
@@ -110,6 +81,7 @@ const NavBar = () => {
             />
           </Typography>
 
+          {!isLoggedIn && 
           <Box
             sx={{
               flexGrow: 1,
@@ -130,21 +102,12 @@ const NavBar = () => {
                 }),
               ]}
             >
-              {settings[0]}
+              Sign Up
             </Button>
-            <StyledModal
-              aria-labelledby="unstyled-modal-title"
-              aria-describedby="unstyled-modal-description"
-              open={open}
-              onClose={handleClose}
-              BackdropComponent={Backdrop}
-            >
-              <Box sx={style}>
-                <SignUp />
-              </Box>
-            </StyledModal>
+            <SignUpModal open={open} onClose={handleClose}/>
 
             <Button
+              onClick={handleOpen1}
               theme={customTheme}
               sx={[
                 { my: 2, color: 'white', display: 'block' },
@@ -155,11 +118,12 @@ const NavBar = () => {
                 }),
               ]}
             >
-              {settings[1]}
+              Sign In
             </Button>
+            <SignInModal open={open1} onClose={handleClose1}/>
           </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
+}
+          <Box display='flex' alignItems='flex-end' style={{borderStyle: 'dotted'}} sx={{ flexGrow: 0}}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -181,17 +145,52 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+              {!isLoggedIn &&
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                  onClick={handleOpen1}
+                    textAlign="center"
+                    theme={customTheme}
+                    color="primary"
+                  >
+                    Sign In
+                  </Typography>
+                  <SignInModal open={open1} onClose={handleClose1}/>
+                </MenuItem>}
+                {!isLoggedIn &&
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography
+                    onClick={handleOpen}
+                    textAlign="center"
+                    theme={customTheme}
+                    color="primary"
+                  >
+                    Sign Up
+                  </Typography>
+                  <SignUpModal open={open} onClose={handleClose}/>
+                </MenuItem>}
+                {isLoggedIn &&
+                <MenuItem  onClick={handleCloseUserMenu}>
+                  <Typography
+                    onClick={getUser_Logout}
+                    textAlign="center"
+                    theme={customTheme}
+                    color="primary"
+                  >
+                    Logout
+                  </Typography>
+                </MenuItem>}
+                {isLoggedIn &&
+                <MenuItem /* key={setting} */ onClick={handleCloseUserMenu}>
                   <Typography
                     textAlign="center"
                     theme={customTheme}
                     color="primary"
                   >
-                    {setting}
+                    Dashboard
                   </Typography>
-                </MenuItem>
-              ))}
+                </MenuItem>}
+              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>

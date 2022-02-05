@@ -13,7 +13,7 @@ const Jumbo = () => {
 
   return (
     <Box mt={4}>
-      <Grid container>
+      <Grid container heigth='30vh'>
         <Grid item xs={12} sx={jumbo} >
           <ThemeProvider theme={customTheme}>
             <Typography
