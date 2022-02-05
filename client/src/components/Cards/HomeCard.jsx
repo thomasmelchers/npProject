@@ -11,11 +11,15 @@ const HomeCard = (props) => {
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={props.picture}
           alt={props.cottageName}
         />
-        <CardContent>
+        <CardContent
+        style={{
+          height:200,
+          backgroundColor: 'rgba(255, 192, 116, 0.4)'
+        }}>
           <Typography gutterBottom variant="h5" component="div">
             {props.cottageName}
           </Typography>
@@ -25,7 +29,7 @@ const HomeCard = (props) => {
           <Typography variant="body2" color="text.secondary"> 
             {props.ratings} /5
           </Typography>
-          <Typography variant="body2" color="text.secondary" mt={1.5}>
+          <Typography variant="body2" color="text.secondary" mt={1.5} style={{textAlign: 'justify'}}>
             {props.summary}
           </Typography>
         </CardContent>
