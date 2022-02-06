@@ -22,8 +22,10 @@ import AuthContext from '../../context/AuthContext'
 const NavBar = () => {
   // MENU UNDER THE PICTURE
   const authContext = useContext(AuthContext)
+  const user_id = authContext.user._id
   const isLoggedIn = authContext.isLoggedIn
   console.log(authContext)
+  console.log(user_id)
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
@@ -182,6 +184,7 @@ const NavBar = () => {
                 </MenuItem>}
                 {isLoggedIn &&
                 <MenuItem /* key={setting} */ onClick={handleCloseUserMenu}>
+                  <Link href={`/dashboard/${user_id}`} underline="none">
                   <Typography
                     textAlign="center"
                     theme={customTheme}
@@ -189,8 +192,8 @@ const NavBar = () => {
                   >
                     Dashboard
                   </Typography>
+                  </Link>
                 </MenuItem>}
-              {/* ))} */}
             </Menu>
           </Box>
         </Toolbar>

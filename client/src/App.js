@@ -2,9 +2,8 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import NavBar from './components/NavBar/NavBar'
 import Home from './pages/Home'
-import HostDashboard from './pages/HostDashboard'
+import Dashboard from './pages/Dashboard'
 import HostReservation from './pages/HostReservation'
-import GuestDashboard from './pages/GuestDashboard'
 import UpdateProfile from './pages/UpdateProfile'
 import Cottage from './pages/Cottage'
 import AddCottage from './pages/AddCottage'
@@ -27,16 +26,12 @@ function App() {
             <Route path="/cottage/" element={<Cottage />} />
             <Route path="/add-cottage" element={<AddCottage />} />
             <Route
-              path="/host-dashboard/:user_id"
-              element={<HostDashboard />}
+              path="/dashboard/:user_id"
+              element={<Dashboard />}
             />
             <Route
-              path="/host-reservation/:user_id"
+              path="/HostReservation/:user_id"
               element={<HostReservation />}
-            />
-            <Route
-              path="/guest-dashboard/:user_id"
-              element={<GuestDashboard />}
             />
             <Route
               path="/update-profile/:user_id"

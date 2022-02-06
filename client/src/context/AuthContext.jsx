@@ -1,4 +1,11 @@
 import React, { createContext, useState} from "react"
+import jwt_decode from "jwt-decode"
+
+if (localStorage.getItem('token')) {
+    const decodedToken = jwt_decode(localStorage.getItem('token'))
+    console.log(decodedToken)
+   /*  AuthContextProvider() */
+}
 
 export const AuthContext = createContext({
     token:'',

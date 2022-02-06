@@ -78,7 +78,10 @@ module.exports.login = catchAsync(async (req, res, next) => {
   //const email = req.body.email
   // const password = req.body.password
   const { email, password } = req.body
-
+  console.log(email)
+  console.log(password)
+  console.log('im log in ')
+  
   // 1. check if the're are email & password - if they exist
   if (!email || !password) {
     return next(

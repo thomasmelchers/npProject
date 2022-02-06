@@ -2,14 +2,27 @@ const express = require('express')
 const morgan = require('morgan')
 const xss = require('xss-clean')
 const mongoSanitize = require('express-mongo-sanitize')
+const cors = require('cors')
 
 const AppError = require('./utils/appError')
 const errorController = require('./controllers/error.controllers')
 const userRoutes = require('./routes/user.routes')
 const commentRoutes = require('./routes/comment.routes')
 const accomodationRoutes = require('./routes/accomodation.routes')
+const path = require('path')
 
 const app = express()
+
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}
+
+app.use(cors('*', corsOptions))
 
 // MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {
@@ -39,5 +52,16 @@ app.all('*', (req, res, next) => {
 
 // ERROR MIDDELWARE HANDLER
 app.use(errorController)
+
+// DEPLOYEMENT 
+
+ __dirname = path.resolve()
+ if(process.env.NODE_ENV==='production'){
+   app.use(express.static(path.join(__dirname, '/client/build')))
+   app.get('*',(req, res)=> {
+     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+   })
+ }
+
 
 module.exports = app
