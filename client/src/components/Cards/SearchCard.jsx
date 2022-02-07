@@ -31,7 +31,7 @@ const SearchCard = (props) => {
           <Grid item /* style={{ borderStyle: 'dotted', borderColor: 'blue' }} */>
             <Typography variant="h4" color='primary'>{props.cottageName}</Typography>
           </Grid>
-          {/* {isLoggedIn &&  */}
+          {/* {(isLoggedIn && user.role === 'guest') &&  */}
             <Grid item /* style={{ borderStyle: 'dotted', borderColor: 'orange' }} */>
               <SpaOutlinedIcon fontSize="large" />
             </Grid>

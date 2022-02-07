@@ -4,7 +4,7 @@ import NavBar from './components/NavBar/NavBar'
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
 import HostReservation from './pages/HostReservation'
-import UpdateProfile from './pages/UpdateProfile'
+import Profile from './pages/Profile'
 import Cottage from './pages/Cottage'
 import AddCottage from './pages/AddCottage'
 import Research from './pages/Research'
@@ -33,10 +33,7 @@ function App() {
               path="/HostReservation/:user_id"
               element={<HostReservation />}
             />
-            <Route
-              path="/update-profile/:user_id"
-              element={<UpdateProfile />}
-            />
+            <Route path='/profile' element={<Profile />} />
             <Route path="/research" element={<Research />} />
             <Route path="*" element={<ErrorPage />} />
         </Routes>

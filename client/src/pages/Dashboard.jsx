@@ -109,7 +109,7 @@ const Dashboard = () => {
             </Grid>
           </Paper>
 
-          {user.role === 'guest' ? (
+          {user.role === 'guest' && (
             // GUEST AREA
 
             <Paper elevation={5}>
@@ -121,7 +121,7 @@ const Dashboard = () => {
                 </Grid>
 
                 <Grid item xs={12}>
-                  <Paper>
+                  <Paper variant ='outlined'>
                     <Grid container padding={5}>
                       <Grid item xs={5}>
                         <img /* src={} label={} */ />
@@ -146,9 +146,54 @@ const Dashboard = () => {
                 </Grid>
               </Grid>
             </Paper>
-          ) : (
-            // HOST AREA
+            
+          )}
+          
 
+          {/* //LIKE PARTS */}
+
+          {user.role === 'guest' && (
+          <Paper elevation={5}>
+              <Grid container mt={5} p={5}>
+                <Grid item xs={12}>
+                  <Typography variant="h4" mb={5} color="secondary">
+                    The Places Liked
+                  </Typography>
+                </Grid>
+
+                <Grid item xs={12}>
+                  <Paper variant ='outlined'>
+                    <Grid container padding={5}>
+                      <Grid item xs={5}>
+                        <img /* src={} label={} */ />
+                      </Grid>
+                      <Grid item={7}>
+                        <Grid container direction="column">
+                          <Grid item> Contenu </Grid>
+                          <Grid item mt={3}>
+                            <Link
+                              /*  href={`/UpdateProfile/${user._id}`} */
+                              underline="none"
+                            >
+                              <ButtonMui
+                                buttonName={'See The Cottage'}
+                              ></ButtonMui>
+                            </Link>
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                  </Paper>
+                </Grid>
+
+              </Grid>
+            </Paper>
+          )}
+            
+          {/* HOST AREA */}
+
+              {/* MANAGING COTTAGE */}
+          {user.role === 'host'  && (
             <Paper elevation={5}>
               <Grid container mt={5} p={5}>
                 <Grid item xs={12}>
@@ -186,6 +231,8 @@ const Dashboard = () => {
               </Grid>
             </Paper>
           )}
+
+          {/* SEE THE BOOKINGS */}
 
           {user.role === 'host' && (
             <Paper elevation={5}>
