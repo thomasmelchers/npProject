@@ -42,7 +42,7 @@ export default function FormSignUp() {
       return [authContext.login(res.data.token)/* , authContext.getUser(res.data.data.user) */ ] 
       }
       )
-      .catch((err) => console.error(err))
+      .catch((err) => console.log(err))
   }
 
   return (

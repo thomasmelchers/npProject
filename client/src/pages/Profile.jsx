@@ -55,14 +55,14 @@ const Profile = () => {
     <main>
       <ThemeProvider theme={customTheme}>
         <Container>
-          <Grid container mt={15}>
+          <Grid container mt={15} mb={5}>
             <Grid item xs={12}>
-              <Paper eleavation={5}>
+              <Paper elevation={5}>
                 <Grid Container direction="column">
                   <Grid
                     item
                     p={5}
-                    style={{ borderStyle: 'dashed', borderColor: 'green' }}
+                    /* style={{ borderStyle: 'dashed', borderColor: 'green' }} */
                   >
                     <Typography variant="h2" color="secondary">
                       Profile of {user.firstname}
@@ -72,7 +72,7 @@ const Profile = () => {
                     item
                     xs={12}
                     px={5}
-                    style={{ borderStyle: 'dashed', borderColor: 'orange' }}
+                    /* style={{ borderStyle: 'dashed', borderColor: 'orange' }} */
                   >
                     <ProfileForm userId={userId.id} firstnameValue={firstnameValue} nameValue={nameValue} DOBValue={DOBValue} genderValue={genderValue} addressValue={addressValue} numberValue={numberValue} postcodeValue={postcodeValue} cityValue={cityValue} countryValue={countryValue} emailValue={emailValue} />
                   </Grid>

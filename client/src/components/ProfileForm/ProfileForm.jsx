@@ -10,6 +10,7 @@ import {
   FormControlLabel,
   MenuItem,
   Box,
+  Typography
 } from '@mui/material'
 import React, { useState, useContext } from 'react'
 import customTheme from '../../assets/theme'
@@ -125,13 +126,29 @@ const ProfileForm = (props) => {
       .then((res) => console.log(res.data))
       .then((res) => console.log(res.data.error))
       .catch((err) => console.log(err))
+
+      setFirstname(firstname)
+ /*      setName('')
+      setDateOfBirth('')
+      setGender('')
+      setAddress('')
+      setNumber('')
+      setPostcode('')
+      setCity('')
+      setCountry('')
+      setEmail('') */
   }
 
   return (
     <ThemeProvider theme={customTheme}>
-      <Box component="form" noValidate onSubmit={submitHandler}>
-        <Paper variant="outlined">
+      <Box component="form" noValidate onSubmit={submitHandler} pb={5}>
+
+        <Box mb={3}>
+        <Paper variant="outlined" >
           <Grid container justifyContent="center" spacing={2} p={5}>
+            <Grid item xs={12}>
+              <Typography variant='h4' color='primary'> Personal Informations</Typography>
+            </Grid>
             <Grid item xs={12} md={6}>
               <TextForm
                 label={props.firstnameValue}
@@ -153,15 +170,18 @@ const ProfileForm = (props) => {
               />
             </Grid>
             <Grid item xs={12} md={6}>
-              <TextForm
-                label={props.DOBValue}
-                id={'dateOfBirth'}
-                name={'dateOfBirth'}
-                type={'date'}
-                skrink={{ shrink: true }}
-                /* value={dateOfBirth} */
-                onChange={DOBChangeHandler}
-              />
+            <TextField
+                  label={props.DOBValue}
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                  type="date"
+                  required
+                  fullWidth
+                  variant="outlined"
+                  InputLabelProps={{ shrink: true }}
+                  /* value={dateOfBirth} */
+                  onChange={DOBChangeHandler}
+                />
             </Grid>
             <Grid container justifyContent="center" item xs={12} md={6}>
               <FormControl>
@@ -182,9 +202,14 @@ const ProfileForm = (props) => {
             </Grid>
           </Grid>
         </Paper>
+        </Box>
 
+        <Box mb={3}>
         <Paper variant="outlined">
           <Grid container justifyContent="center" spacing={2} p={5}>
+          <Grid item xs={12}>
+              <Typography variant='h4' color='primary'> Residency Informations</Typography>
+            </Grid>
             <Grid item xs={9} md={8}>
               <TextForm
                 label={props.addressValue}
@@ -249,9 +274,14 @@ const ProfileForm = (props) => {
             </Grid>
           </Grid>
         </Paper>
+        </Box>
 
+        <Box mb={3}>
         <Paper variant="outlined">
           <Grid container justifyContent="center" spacing={2} p={5}>
+          <Grid item xs={12}>
+              <Typography variant='h4' color='primary'> Contact Informations</Typography>
+            </Grid>
             <Grid item xs={12} md={6}>
               <TextForm
                 label={props.emailValue}
@@ -302,20 +332,22 @@ const ProfileForm = (props) => {
                 onChange={languagesSpokeChangeHandler2}
               />
             </Grid>
-            <Grid item xs={12} mt={3} style={{ borderStyle: 'dotted' }}>
+            <Grid item xs={12} mt={3}>
               <Grid container justifyContent="space-around">
                 <Grid
+                container
+                justifyContent='center'
                   item
                   xs={5}
-                  alignSelf="center"
-                  style={{ borderStyle: 'solid' }}
                 >
                   <ButtonMui buttonName={'reset Password'}></ButtonMui>
                 </Grid>
+
                 <Grid
+                container
+                justifyContent='center'
                   item
                   xs={5}
-                  style={{ borderStyle: 'dotted', borderColor: 'red' }}
                 >
                   <ButtonMui
                     type={'submit'}
@@ -326,6 +358,8 @@ const ProfileForm = (props) => {
             </Grid>
           </Grid>
         </Paper>
+        </Box>
+
       </Box>
     </ThemeProvider>
   )
