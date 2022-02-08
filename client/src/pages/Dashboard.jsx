@@ -242,7 +242,7 @@ const Dashboard = () => {
                             underline="none"
                           >
                             <ButtonMui
-                              buttonName={'See My Reservation'}
+                              buttonName={'Manage my Cottage'}
                             ></ButtonMui>
                           </Link>
                         </Grid>
