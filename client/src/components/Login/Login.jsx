@@ -37,35 +37,12 @@ export default function FormSignUp() {
       method: 'post',
       url: `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
       data: userLogin,
-      /* withCredentials: false, */
     })
     .then((res)=> {
-      /* console.log(res.data.token)
-    console.log(res.data) */
-      return [authContext.login(res.data.token), authContext.getUser(res.data.data.user) ] 
-      /* console.log(authContext) */}
+      return [authContext.login(res.data.token)/* , authContext.getUser(res.data.data.user) */ ] 
+      }
       )
-      /* .then((res) =>  (console.log(res.data.token) + localStorage.setItem('token', res.data.token) + (window.location = '/'))) */
       .catch((err) => console.error(err))
-      /* console.log(authContext) */
-      /* .then((res) => { */
-        
-        /* console.log(res.data.data.user) */
-        /* if (res.data.error) {
-          emailError.innerHTML = res.data.error.message
-          passwordError.innerHTML = res.data.error.password
-        }else{{ */
-          /* return authContext.login(res.data.token)
-          console.log(authContext) */
-          /* return authContext.user(res.data.data.user) */
-          /* window.location = ('/') */
-          
-        /* } */
-         
-        /* console.log(res.data.token)
-        console.log(res.data) */
-      /* })
-      .catch((err) => console.error(err)) */
   }
 
   return (

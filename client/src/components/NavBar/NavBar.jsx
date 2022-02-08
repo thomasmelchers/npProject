@@ -184,7 +184,7 @@ const NavBar = () => {
                 </MenuItem>}
                 {isLoggedIn &&
                 <MenuItem /* key={setting} */ onClick={handleCloseUserMenu}>
-                  <Link href={`/dashboard/${user_id}`} underline="none">
+                  <Link href={`/dashboard/`} underline="none">
                   <Typography
                     textAlign="center"
                     theme={customTheme}

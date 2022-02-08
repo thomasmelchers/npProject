@@ -109,7 +109,7 @@ const SignUp = () => {
 
     await axios({
       method: 'post',
-      url: `${process.env.REACT_APP_API_URL}api/v1/users/register`,
+      url: `${process.env.REACT_APP_API_URL}/api/v1/users/register`,
       data: user,
     })
       .then((res) => console.log(res.data))
@@ -128,6 +128,8 @@ const SignUp = () => {
     setEmail('')
     setPassword('')
     setPasswordConfirm('')
+
+    window.location('/')
   }
   return (
     <ThemeProvider theme={customTheme}>

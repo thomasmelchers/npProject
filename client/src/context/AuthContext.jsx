@@ -1,13 +1,34 @@
-import React, { createContext, useState} from "react"
-import jwt_decode from "jwt-decode"
+import React, { createContext, useState, useEffect } from 'react'
+import jwt_decode from 'jwt-decode'
+import axios from 'axios'
 
-if (localStorage.getItem('token')) {
+/* const getToken = {
+    user_id: '',
+  }
+
+  if (localStorage.getItem('token')) {
     const decodedToken = jwt_decode(localStorage.getItem('token'))
-    console.log(decodedToken)
-   /*  AuthContextProvider() */
-}
+    if (decodedToken.exp * 1000 < Date.now()) {
+      localStorage.removeItem('token')
+    } else {
+      getToken.user_id = decodedToken.id
 
-export const AuthContext = createContext({
+    }
+  }
+
+  const getUserData = async () => {
+    const data = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/v1/users/${getToken.user_id}`
+    )
+    setUser(data.data.data.user)
+  } */
+
+  /* useEffect(() => {
+    getUserData()
+  }, [])  */
+  /* console.log(user) */
+
+  export const AuthContext = createContext({
     token:'',
     isLoggedIn: false,
     login: (token)=> {},
@@ -18,7 +39,9 @@ export const AuthContext = createContext({
 })
 
 export const AuthContextProvider = (props) => {
-    const [token, setToken] = useState('')
+    const initialToken = localStorage.getItem('token')
+    
+    const [token, setToken] = useState(initialToken)
     const [user, setUser] = useState('')
 
     const userIsLoggedIn = !!token //return True
@@ -30,6 +53,7 @@ export const AuthContextProvider = (props) => {
 
     const logoutHandler = () => {
         setToken(null)
+        localStorage.removeItem('token')
     }
 
     const userHandler = (user) => {

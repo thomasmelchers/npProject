@@ -9,7 +9,6 @@ const errorController = require('./controllers/error.controllers')
 const userRoutes = require('./routes/user.routes')
 const commentRoutes = require('./routes/comment.routes')
 const accomodationRoutes = require('./routes/accomodation.routes')
-const path = require('path')
 
 const app = express()
 
@@ -43,12 +42,12 @@ app.use('/api/v1/users', userRoutes)
 app.use('/api/v1/comments', commentRoutes)
 app.use('/api/v1/accomodations', accomodationRoutes)
 
-app.all('*', (req, res, next) => {
+//app.all('*', (req, res, next) => {
 /*   const err = new Error(`Can't find ${req.originalUrl} on this server`)
   err.status = 'fail'
   err.statusCode = 404 */
-  next(new AppError(`Can't find ${req.originalUrl} on this server`)) // if there is an error the next function goes directly to err middleware handler. The other middleware will never run ! 
-}) 
+  //next(new AppError(`Can't find ${req.originalUrl} on this server`)) // if there is an error the next function goes directly to err middleware handler. The other middleware will never run ! 
+//}) 
 
 // ERROR MIDDELWARE HANDLER
 app.use(errorController)

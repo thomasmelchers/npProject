@@ -16,13 +16,37 @@ import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
 import customTheme from '../assets/theme'
 import ButtonMui from '../components/Button/Button'
+import jwt_decode from 'jwt-decode'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const Dashboard = () => {
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
-  console.log(isLoggedIn)
-  const user = authContext.user
-  const role = user.role
+
+  const isToken = localStorage.getItem('token')
+    const userId = {
+      id: '',
+    }
+    const [user, setUser] = useState([])
+  
+    if (isToken) {
+      const decodedToken = jwt_decode(isToken)
+      userId.id = decodedToken.id
+      console.log(userId)
+    }
+  
+    const getUserData = async () => {
+      const data = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/v1/users/${userId.id}`
+      )
+      console.log(data)
+      setUser(data.data.data.user)
+    }
+  
+    useEffect(() => {
+      getUserData()
+    }, [])
 
   /* const date = new date (user.createdAt) */
   /* const year = date.getYear() */
@@ -97,7 +121,7 @@ const Dashboard = () => {
                     </Grid>
                     <Grid item mt={3}>
                       <Link
-                        href={`/UpdateProfile/${user._id}`}
+                        href={`/profile`}
                         underline="none"
                       >
                         <ButtonMui buttonName={'Edit Profile'}></ButtonMui>

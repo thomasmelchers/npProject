@@ -6,9 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start:prod": "NODE_ENV=production nodemon server.js",
-    "start": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && run npm run build --prefix client"
+    "start": "nodemon server.js"
   },
   "author": "Thomas Melchers",
   "license": "ISC",
