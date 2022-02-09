@@ -128,8 +128,6 @@ const SignUp = () => {
     setEmail('')
     setPassword('')
     setPasswordConfirm('')
-
-    window.location = '/'
   }
   return (
     <ThemeProvider theme={customTheme}>

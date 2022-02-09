@@ -43,7 +43,6 @@ export default function FormSignUp() {
       }
       )
       .catch((err) => console.log(err))
-      window.location = '/dashboard'
   }
 
   return (
