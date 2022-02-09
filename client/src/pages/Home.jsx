@@ -14,8 +14,6 @@ const Home = () => {
       `${process.env.REACT_APP_API_URL}api/v1/accomodations`
     )
     setAccomodation(data.data.data.Accomodations)
-    console.log(accomodation)
-    console.log(data)
   }
 
   useEffect(() => {

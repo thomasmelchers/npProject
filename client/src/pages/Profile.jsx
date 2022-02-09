@@ -31,7 +31,7 @@ const Profile = () => {
   
     const getUserData = async () => {
       const data = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/v1/users/${userId.id}`
+        `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
       )
       setUser(data.data.data.user)
     }

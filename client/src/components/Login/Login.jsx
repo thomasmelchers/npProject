@@ -35,7 +35,7 @@ export default function FormSignUp() {
 
     axios({
       method: 'post',
-      url: `${process.env.REACT_APP_API_URL}/api/v1/users/login`,
+      url: `${process.env.REACT_APP_API_URL}api/v1/users/login`,
       data: userLogin,
     })
     .then((res)=> {
@@ -43,6 +43,7 @@ export default function FormSignUp() {
       }
       )
       .catch((err) => console.log(err))
+      window.location = '/dashboard'
   }
 
   return (

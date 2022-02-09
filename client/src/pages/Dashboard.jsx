@@ -38,7 +38,7 @@ const Dashboard = () => {
   
     const getUserData = async () => {
       const data = await axios.get(
-        `${process.env.REACT_APP_API_URL}/api/v1/users/${userId.id}`
+        `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
       )
       console.log(data)
       setUser(data.data.data.user)

@@ -11,7 +11,7 @@ const Research = () => {
 
   const getAccomodationsData = async () => {
     const data = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/v1/accomodations`
+      `${process.env.REACT_APP_API_URL}api/v1/accomodations`
     )
     setAccomodation(data.data.data.Accomodations)
   }
