@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {useContext} from 'react'
+import { useContext, useEffect, useState } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
@@ -18,14 +18,14 @@ import SignUpModal from '../Modals/SignUpModal'
 import SignInModal from '../Modals/SignInModal'
 import getUser_Logout from '../../actions/getUser_Logout'
 import AuthContext from '../../context/AuthContext'
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 const NavBar = () => {
   // MENU UNDER THE PICTURE
   const authContext = useContext(AuthContext)
-  const user_id = authContext.user._id
   const isLoggedIn = authContext.isLoggedIn
-  console.log(authContext)
-  console.log(user_id)
+
   const [anchorElUser, setAnchorElUser] = React.useState(null)
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
@@ -33,6 +33,9 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
+
+ /*  const user_Id = user._id
+  const userPicture = user.picture */
 
   // MODAL - OPEN CLOSE FUNCTIONS
   const [open, setOpen] = React.useState(false)
@@ -43,13 +46,8 @@ const NavBar = () => {
   const handleOpen1 = () => setOpen1(true)
   const handleClose1 = () => setOpen1(false)
 
-  
   return (
-    <AppBar
-      position="fixed"
-      theme={customTheme}
-      color="primary"
-    >
+    <AppBar position="fixed" theme={customTheme} color="primary">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href={'/'} underline="none">
@@ -83,52 +81,62 @@ const NavBar = () => {
             />
           </Typography>
 
-          {!isLoggedIn && 
-          <Box
-            sx={{
-              flexGrow: 1,
-              justifyContent: 'flex-end',
-              mr: 3,
-              display: { xs: 'none', md: 'flex' },
-            }}
-          >
-            <Button
-              onClick={handleOpen}
-              theme={customTheme}
-              sx={[
-                { my: 2, color: 'white', display: 'block' },
-                (customTheme) => ({
-                  '&:hover': {
-                    color: customTheme.palette.secondary.main,
-                  },
-                }),
-              ]}
+          {!isLoggedIn && (
+            <Box
+              sx={{
+                flexGrow: 1,
+                justifyContent: 'flex-end',
+                mr: 3,
+                display: { xs: 'none', md: 'flex' },
+              }}
             >
-              Sign Up
-            </Button>
-            <SignUpModal open={open} onClose={handleClose}/>
+              <Button
+                onClick={handleOpen}
+                theme={customTheme}
+                sx={[
+                  { my: 2, color: 'white', display: 'block' },
+                  (customTheme) => ({
+                    '&:hover': {
+                      color: customTheme.palette.secondary.main,
+                    },
+                  }),
+                ]}
+              >
+                Sign Up
+              </Button>
+              <SignUpModal open={open} onClose={handleClose} />
 
-            <Button
-              onClick={handleOpen1}
-              theme={customTheme}
-              sx={[
-                { my: 2, color: 'white', display: 'block' },
-                (customTheme) => ({
-                  '&:hover': {
-                    color: customTheme.palette.secondary.main,
-                  },
-                }),
-              ]}
-            >
-              Sign In
-            </Button>
-            <SignInModal open={open1} onClose={handleClose1}/>
-          </Box>
-}
-          <Box display='flex' alignItems='flex-end' style={{borderStyle: 'dotted'}} sx={{ flexGrow: 0}}>
+              <Button
+                onClick={handleOpen1}
+                theme={customTheme}
+                sx={[
+                  { my: 2, color: 'white', display: 'block' },
+                  (customTheme) => ({
+                    '&:hover': {
+                      color: customTheme.palette.secondary.main,
+                    },
+                  }),
+                ]}
+              >
+                Sign In
+              </Button>
+              <SignInModal open={open1} onClose={handleClose1} />
+            </Box>
+          )}
+          <Box
+            display="flex"
+            alignItems="flex-end"
+            style={{ borderStyle: 'dotted' }}
+            sx={{ flexGrow: 0 }}
+          >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {!isLoggedIn ? (
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />):(
+                <Avatar
+                  /* alt= {user_Id}
+                  src={`./client/src/assets/pictures/users/${userPicture}`} */
+                />)}
               </IconButton>
             </Tooltip>
             <Menu
@@ -147,19 +155,20 @@ const NavBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {!isLoggedIn &&
+              {!isLoggedIn && (
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
-                  onClick={handleOpen1}
+                    onClick={handleOpen1}
                     textAlign="center"
                     theme={customTheme}
                     color="primary"
                   >
                     Sign In
                   </Typography>
-                  <SignInModal open={open1} onClose={handleClose1}/>
-                </MenuItem>}
-                {!isLoggedIn &&
+                  <SignInModal open={open1} onClose={handleClose1} />
+                </MenuItem>
+              )}
+              {!isLoggedIn && (
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     onClick={handleOpen}
@@ -169,10 +178,11 @@ const NavBar = () => {
                   >
                     Sign Up
                   </Typography>
-                  <SignUpModal open={open} onClose={handleClose}/>
-                </MenuItem>}
-                {isLoggedIn &&
-                <MenuItem  onClick={handleCloseUserMenu}>
+                  <SignUpModal open={open} onClose={handleClose} />
+                </MenuItem>
+              )}
+              {isLoggedIn && (
+                <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
                     onClick={getUser_Logout}
                     textAlign="center"
@@ -181,19 +191,21 @@ const NavBar = () => {
                   >
                     Logout
                   </Typography>
-                </MenuItem>}
-                {isLoggedIn &&
+                </MenuItem>
+              )}
+              {isLoggedIn && (
                 <MenuItem /* key={setting} */ onClick={handleCloseUserMenu}>
                   <Link href={`/dashboard/`} underline="none">
-                  <Typography
-                    textAlign="center"
-                    theme={customTheme}
-                    color="primary"
-                  >
-                    Dashboard
-                  </Typography>
+                    <Typography
+                      textAlign="center"
+                      theme={customTheme}
+                      color="primary"
+                    >
+                      Dashboard
+                    </Typography>
                   </Link>
-                </MenuItem>}
+                </MenuItem>
+              )}
             </Menu>
           </Box>
         </Toolbar>

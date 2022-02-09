@@ -33,14 +33,12 @@ const Dashboard = () => {
     if (isToken) {
       const decodedToken = jwt_decode(isToken)
       userId.id = decodedToken.id
-      console.log(userId)
     }
   
     const getUserData = async () => {
       const data = await axios.get(
         `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
       )
-      console.log(data)
       setUser(data.data.data.user)
     }
   
@@ -48,9 +46,6 @@ const Dashboard = () => {
       getUserData()
     }, [])
 
-  /* const date = new date (user.createdAt) */
-  /* const year = date.getYear() */
-  /* console.log(date) */
   return (
     <main>
       <ThemeProvider theme={customTheme}>
@@ -98,7 +93,7 @@ const Dashboard = () => {
                   >
                     <Avatar
                       alt={user.name}
-                      src="../../default-user.png"
+                      src={`/images/${user.picture}`}
                       sx={{ width: 150, height: 150 }}
                     />
                   </Stack>

@@ -17,14 +17,31 @@ import ErrorPage from './pages/ErrorPage'
 import AuthContext from './context/AuthContext'
 
 function App() {
+
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
 
-  /* postUsers()
-  getUsers() */
-  /* fetch(`${process.env.REACT_APP_API_URL}/api/v1/accomodations`)
-    .then((res) => res.json())
-    .then((res) => console.log(res)) */
+  /* const isToken = localStorage.getItem('token')
+  const userId = {
+    id: '',
+  }
+  const [user, setUser] = useState([])
+
+  if (isToken) {
+    const decodedToken = jwt_decode(isToken)
+    userId.id = decodedToken.id
+  }
+
+  const getUserData = async () => {
+    const data = await axios.get(
+      `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
+    )
+    setUser(data.data.data.user)
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, []) */
 
   return (
     <div>

@@ -114,8 +114,8 @@ const SignUp = () => {
     })
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err))
-
-    setRole('')
+      
+    /* setRole('')
     setFirstname('')
     setName('')
     setDateOfBirth('')
@@ -127,7 +127,9 @@ const SignUp = () => {
     setCountry('')
     setEmail('')
     setPassword('')
-    setPasswordConfirm('')
+    setPasswordConfirm('') */
+
+
   }
   return (
     <ThemeProvider theme={customTheme}>
