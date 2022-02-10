@@ -17,7 +17,7 @@ export default function ButtonMui(props) {
   const classes = useStyles();
   return (
   <ThemeProvider theme={customTheme}>
-    <Button className={classes.root} size="large" type={props.type} variant="contained">{props.buttonName}</Button>
+    <Button className={classes.root} onClick={props.onClick} size="large" type={props.type} variant="contained">{props.buttonName}</Button>
   </ThemeProvider>
   )
 }

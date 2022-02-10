@@ -1,5 +1,4 @@
 import axios from 'axios'
-import GuestDashboard from '../pages/GuestDashboard'
 
 const user = {
     firstname: "",

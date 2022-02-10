@@ -93,7 +93,7 @@ const Dashboard = () => {
                   >
                     <Avatar
                       alt={user.name}
-                      src={`/images/${user.picture}`}
+                      src={`/images/users/${user.picture}`}
                       sx={{ width: 150, height: 150 }}
                     />
                   </Stack>

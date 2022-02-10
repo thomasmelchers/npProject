@@ -18,10 +18,8 @@ import SignUpModal from '../Modals/SignUpModal'
 import SignInModal from '../Modals/SignInModal'
 import getUser_Logout from '../../actions/getUser_Logout'
 import AuthContext from '../../context/AuthContext'
-import axios from 'axios'
-import jwt_decode from 'jwt-decode'
 
-const NavBar = () => {
+const NavBar = (props) => {
   // MENU UNDER THE PICTURE
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
@@ -131,12 +129,10 @@ const NavBar = () => {
           >
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {!isLoggedIn ? (
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />):(
-                <Avatar
-                  /* alt= {user_Id}
-                  src={`./client/src/assets/pictures/users/${userPicture}`} */
-                />)}
+                {/* {!isLoggedIn ? ( */}
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />{/* ):
+                ( null
+                )} */}
               </IconButton>
             </Tooltip>
             <Menu

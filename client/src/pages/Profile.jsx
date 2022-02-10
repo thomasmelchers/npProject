@@ -74,7 +74,7 @@ const Profile = () => {
                     px={5}
                     /* style={{ borderStyle: 'dashed', borderColor: 'orange' }} */
                   >
-                    <ProfileForm userId={userId.id} firstnameValue={firstnameValue} nameValue={nameValue} DOBValue={DOBValue} genderValue={genderValue} addressValue={addressValue} numberValue={numberValue} postcodeValue={postcodeValue} cityValue={cityValue} countryValue={countryValue} emailValue={emailValue} />
+                    <ProfileForm userId={userId.id} userPicture={user.picture} firstnameValue={firstnameValue} nameValue={nameValue} DOBValue={DOBValue} genderValue={genderValue} addressValue={addressValue} numberValue={numberValue} postcodeValue={postcodeValue} cityValue={cityValue} countryValue={countryValue} emailValue={emailValue} />
                   </Grid>
                 </Grid>
               </Paper>

@@ -24,7 +24,7 @@ router.post('/updatePassword', checkUserAccess_Middleware.protect, authControlle
 //UPLOAD PROFILE IMAGE
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, './client/src/assets/pictures/users');
+      cb(null, './client/public/images/users');
     },
     filename: (req, file, cb) => {
       cb(null, file.originalname);

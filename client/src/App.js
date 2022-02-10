@@ -21,31 +21,9 @@ function App() {
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
 
-  /* const isToken = localStorage.getItem('token')
-  const userId = {
-    id: '',
-  }
-  const [user, setUser] = useState([])
-
-  if (isToken) {
-    const decodedToken = jwt_decode(isToken)
-    userId.id = decodedToken.id
-  }
-
-  const getUserData = async () => {
-    const data = await axios.get(
-      `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
-    )
-    setUser(data.data.data.user)
-  }
-
-  useEffect(() => {
-    getUserData()
-  }, []) */
-
   return (
     <div>
-      <NavBar />
+      <NavBar/>
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -31,7 +31,7 @@ export default function FormSignUp() {
       email: email,
       password: password,
     }
-    /* console.log(userLogin) */
+    console.log(userLogin)
 
     axios({
       method: 'post',
