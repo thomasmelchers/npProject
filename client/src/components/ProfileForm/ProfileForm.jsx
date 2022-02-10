@@ -101,7 +101,7 @@ const ProfileForm = (props) => {
     setLanguagesSpoken2(event.target.value)
   }
 
-  const submitHandler = async (event) => {
+  const submitHandler1 = async (event) => {
     event.preventDefault()
 
     const user = {
@@ -109,6 +109,21 @@ const ProfileForm = (props) => {
       name: name,
       dateOfBirth: dateOfBirth,
       gender: gender,
+    }
+
+    await axios({
+      method: 'patch',
+      url: `${process.env.REACT_APP_API_URL}api/v1/users/${userId}`,
+      data: user,
+    })
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err))
+  }
+
+  const submitHandler = async (event) => {
+    event.preventDefault()
+
+    const user = {
       address: address,
       number: number,
       postcode: postcode,
@@ -126,32 +141,27 @@ const ProfileForm = (props) => {
       data: user,
     })
       .then((res) => console.log(res.data))
-      .then((res) => console.log(res.data.error))
       .catch((err) => console.log(err))
   }
 
-
   return (
     <ThemeProvider theme={customTheme}>
-     
-        <Box mb={3}>
-          <Paper variant="outlined">
-            <Grid container justifyContent="center" spacing={2} p={5}>
-              <Grid item xs={12}>
-                <Typography variant="h4" color="primary">
-                  Personal Informations
-                </Typography>
+      <Box mb={3}>
+        <Paper variant="outlined">
+          <Grid container justifyContent="center" spacing={2} p={5}>
+            <Grid item xs={12}>
+              <Typography variant="h4" color="primary">
+                Personal Informations
+              </Typography>
+            </Grid>
+
+            <Grid container>
+              <Grid item xs={12} md={6}>
+                <UpdatePicture userId={userId} userPicture={userPicture} />
               </Grid>
 
-              <Grid container>
-                <Grid item xs={12} md={6} >
-                 
-
-                      <UpdatePicture userId={userId} userPicture={userPicture}/>
-
-                </Grid>
-                
-                <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6}>
+                <Box component="form" noValidate onSubmit={submitHandler1}>
                   <Grid container justifyContent="center" spacing={3}>
                     <Grid item xs={12}>
                       <TextForm
@@ -221,14 +231,21 @@ const ProfileForm = (props) => {
                         </RadioGroup>
                       </FormControl>
                     </Grid>
+                    <Grid container justifyContent="center" item xs={12}>
+                      <ButtonMui
+                        type={'submit'}
+                        buttonName={'Save Changes'}
+                      ></ButtonMui>
+                    </Grid>
                   </Grid>
-                </Grid>
+                </Box>
               </Grid>
             </Grid>
-          </Paper>
-        </Box>
+          </Grid>
+        </Paper>
+      </Box>
 
-        <Box component="form" noValidate onSubmit={submitHandler} pb={5}>
+      <Box component="form" noValidate onSubmit={submitHandler} pb={5}>
         <Box mb={3}>
           <Paper variant="outlined">
             <Grid container justifyContent="center" spacing={2} p={5}>
