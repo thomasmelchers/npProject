@@ -69,6 +69,7 @@ const Home = () => {
               }}
             >
               <HomeCard
+                id ={e._id}
                 cottageName={e.cottageName}
                 city={e.city}
                 country={e.country}
@@ -78,7 +79,7 @@ const Home = () => {
                 key={index}
               ></HomeCard>
             </Grid>
-          ))}
+          )).slice(0, 3)}
       </Grid>
     </main>
   )

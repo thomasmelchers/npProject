@@ -27,7 +27,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/cottage/" element={<Cottage />} />
+          <Route path="/cottage/:id" element={<Cottage />} />
           <Route path="/research" element={<Research />} />
 
           {isLoggedIn ? (

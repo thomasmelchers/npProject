@@ -39,10 +39,9 @@ const UpdatePicture = (props) => {
 
     await axios
       .post(url, data, config)
-      .then((res) => console.log(res))
+      .then((res) => userPicture = file)
       .catch((err) => console.log(err))
 
-    /* await userPicture = file */
   }
 
   return (

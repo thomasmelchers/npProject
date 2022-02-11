@@ -5,13 +5,16 @@ import {
   CardMedia,
   CardContent,
   Typography,
+  Link
 } from '@mui/material'
 import { ThemeProvider } from '@mui/material'
 import customTheme from '../../assets/theme'
 
 const HomeCard = (props) => {
+const id = props.id
+console.log(id)
   return (
-    
+    <Link href={`/cottage/${id}`} underline='none'>
       <Card sx={{ maxWidth: 500, height: 400 }}>
         <CardActionArea>
           <CardMedia
@@ -48,7 +51,7 @@ const HomeCard = (props) => {
           </CardContent>
         </CardActionArea>
       </Card>
-    
+      </Link>
   )
 }
 

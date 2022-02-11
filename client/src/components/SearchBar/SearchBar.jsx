@@ -8,18 +8,21 @@ import customTheme from '../../assets/theme';
 
 const SearchBar = () => {
   const [city, setCity] = useState('')
+
   const cityChangeHandler = (event) => {
     setCity(event.target.value)
   }
 
   const submitHandler = async () => {
-    if (!city) {
-        axios({
+    if (city) {
+        await axios({
             method: 'get',
             url: `${process.env.REACT_APP_API_URL}api/v1/users/accomodations`,
             param: city
         })
     }
+   
+
   }
 
   return (
@@ -38,7 +41,7 @@ const SearchBar = () => {
             style={{backgroundColor: 'rgba(255, 192, 116, 0.4)', borderRadius: 12, border:14, borderColor: 'rgba(255, 192, 116)', underline:'none'}}
           ></TextField>
           </Grid>
-          <Grid item sx={4} md={2}><Button variant="outlined" size='large' startIcon={< SearchOutlinedIcon/>} /></Grid>
+          <Grid item sx={4} md={2}><Button variant="outlined" size='large' type='submit' startIcon={< SearchOutlinedIcon/>} /></Grid>
         </Grid>
       </Grid>
     </Box>

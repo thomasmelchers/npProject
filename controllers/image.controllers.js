@@ -4,7 +4,7 @@ const multer = require('multer')
 let uploaded = false
 
 module.exports.imageProfil = async (req, res) => {
-console.log(req.file)
+/* console.log(req.file) */
   try {
     if (
       req.file.mimetype != "image/jpg" &&
