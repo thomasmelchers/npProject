@@ -3,13 +3,18 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import { AuthContextProvider } from './context/AuthContext'
+import { ThemeProvider } from '@mui/material'
+import customTheme from './assets/theme'
+
 
 ReactDOM.render(
+  <ThemeProvider theme={customTheme}>
   <React.StrictMode>
     <AuthContextProvider>
         <App />
     </AuthContextProvider>
-  </React.StrictMode>,
+  </React.StrictMode>
+  </ThemeProvider>,
   document.getElementById('root')
 )
 

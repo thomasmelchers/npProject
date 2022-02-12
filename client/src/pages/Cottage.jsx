@@ -1,20 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react'
 import SearchBar from '../components/SearchBar/SearchBar'
-import {
-  Typography,
-  Grid,
-  Container,
-  ThemeProvider,
-  Paper,
-} from '@mui/material'
-import { grid } from '@mui/system'
+import { Typography, Grid, Container, Paper } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import customTheme from '../assets/theme'
 import SpaIcon from '@mui/icons-material/Spa'
 import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
 import jwt_decode from 'jwt-decode'
 import AuthContext from '../context/AuthContext'
+import InfoCottage from '../components/Typography/InfoCottage'
 
 const Cottage = () => {
   // ABOUT USER
@@ -60,71 +53,91 @@ const Cottage = () => {
 
   console.log(accomodation)
 
+  // MAPBOX
+
+https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew
+
   return (
-    <ThemeProvider theme={customTheme}>
-      <Container>
-        <Grid container mt={15}>
-          <Grid item xs={12}>
-            <Paper elevation={5}>
-              {/* CONTAINER AVEC LE TITRE */}
+    <Container>
+      <Grid container mt={15}>
+        <Grid item xs={12}>
+          <Paper elevation={5}>
+            {/* TITLE CONTAINER  */}
 
-              <Grid container p={5}>
-                {/* {(isLoggedIn && user.role === 'guest') && */}
-                <Grid container justifyContent="flex-end" item xs={12}>
-                  <SpaOutlinedIcon fontSize="large" />
-                </Grid>{' '}
-                {/* } */}
-                <Grid item xs={12}>
-                  <Typography variant="h3" color="secondary">
-                    {accomodation.cottageName}
-                  </Typography>
-                </Grid>
-                <Grid container></Grid>
-                <Grid item xs={6} md={4}>
-                  <Typography color="primary">
-                    Location: <span color="black">{accomodation.city}</span>
-                  </Typography>
-                </Grid>
-                <Grid item xs={6} md={4}>
-                  <Typography color="primary">
-                    Rating: <span>{accomodation.rating} </span>
-                  </Typography>
-                </Grid>
+            <Grid container px={5} pt={5}>
+              {/* {(isLoggedIn && user.role === 'guest') && */}
+              <Grid container justifyContent="flex-end" item xs={12}>
+                <SpaOutlinedIcon fontSize="large" />
               </Grid>
-
-              <Grid container p={5}>
-                <Grid xs={12}>
-                  <Typography>Here will be the image of the accomodation</Typography>
-                </Grid>
-              </Grid>
-
-              <Grid container p={5}>
-                <Grid item xs={12} md={8}>
-                    <Grid item xs={12}>
-                      <Typography >Type of accomodation: {accomodation.typeOfCottage}</Typography>
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Typography variant='h6'> Description: </Typography>
-                      <Typography>{accomodation.description}</Typography>
-                    </Grid>
-                </Grid>
-
-                <Grid item xs={12} md={4}>
-
-                </Grid>
-              </Grid>
-
-                {/* THE MAP AREA */}
+              {/* } */}
               <Grid item xs={12}>
+                <Typography variant="h3" color="secondary">
+                  {accomodation.cottageName}
+                </Typography>
+              </Grid>
+            </Grid>
 
+            {/* INFO ABOUT THE COTTAGE - LOCATION, TYPE OF COTTAGE, RATINGS */}
+
+            <Grid container px={5}>
+              <InfoCottage
+                xs={6} md={4}
+                colorLabel={'primary'}
+                valueLabel={'type of Cottage:'}
+                colorValue={'black'}
+                value={accomodation.typeOfCottage}
+              />
+              <InfoCottage
+                xs={6} md={4}
+                colorLabel={'primary'}
+                valueLabel={'location:'}
+                colorValue={'black'}
+                value={accomodation.city}
+              />
+              <InfoCottage
+                xs={12}
+                colorLabel={'primary'}
+                valueLabel={'Ratting:'}
+                colorValue={'black'}
+                value={accomodation.ratting}
+              />
+            </Grid>
+
+            {/* IMAGE SECTION */}
+            <Grid container p={5}>
+              <Grid xs={12}>
+                <Typography>
+                  Here will be the image of the accomodation
+                </Typography>
+              </Grid>
+            </Grid>
+
+            <Grid container p={5}>
+              <Grid item xs={12} md={8}>
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h6"
+                    mb={1}
+                    color="primary"
+                    style={{ textTransform: 'uppercase' }}
+                  >
+                    Description:
+                  </Typography>
+                  <Typography textAlign="justify" color="black">
+                    {accomodation.description}
+                  </Typography>
+                </Grid>
               </Grid>
 
-              
-            </Paper>
-          </Grid>
+              <Grid item xs={12} md={4}></Grid>
+            </Grid>
+
+            {/* THE MAP AREA */}
+            <Grid item xs={12}></Grid>
+          </Paper>
         </Grid>
-      </Container>
-    </ThemeProvider>
+      </Grid>
+    </Container>
   )
 }
 

@@ -12,7 +12,7 @@ import HostReservation from './pages/HostReservation'
 import Profile from './pages/Profile'
 import Cottage from './pages/Cottage'
 import AddCottage from './pages/AddCottage'
-import Research from './pages/Research'
+import Accomodations from './pages/Accomodations'
 import ErrorPage from './pages/ErrorPage'
 import AuthContext from './context/AuthContext'
 
@@ -28,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/cottage/:id" element={<Cottage />} />
-          <Route path="/research" element={<Research />} />
+          <Route path="/accomodations" element={<Accomodations />} />
 
           {isLoggedIn ? (
             <Route path="/add-cottage" element={<AddCottage />} />
