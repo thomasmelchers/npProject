@@ -32,7 +32,7 @@ const NavBar = (props) => {
     setAnchorElUser(null)
   }
 
- /*  const user_Id = user._id
+  /*  const user_Id = user._id
   const userPicture = user.picture */
 
   // MODAL - OPEN CLOSE FUNCTIONS
@@ -72,11 +72,13 @@ const NavBar = (props) => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            <CottageIcon
-              theme={customTheme}
-              fontSize="large"
-              color="secondary"
-            />
+            <Link href={'/'} underline="none">
+              <CottageIcon
+                theme={customTheme}
+                fontSize="large"
+                color="secondary"
+              />
+            </Link>
           </Typography>
 
           {!isLoggedIn && (
@@ -130,7 +132,8 @@ const NavBar = (props) => {
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* {!isLoggedIn ? ( */}
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />{/* ):
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* ):
                 ( null
                 )} */}
               </IconButton>
