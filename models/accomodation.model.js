@@ -77,10 +77,11 @@ const accomodationSchema = new mongoose.Schema({
     required: [true, 'A description is mandatory to registred your cottage'],
   },
   pictures: {
-    type: [String],
+    type: String,
   },
   ratings: {
-    type: [Number]
+    type: [Number],
+    default: 4
   },
   comments_id: {
     type: [String],

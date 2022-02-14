@@ -52,7 +52,7 @@ const Dashboard = () => {
         <Container>
           <Paper elevation={5}>
             <Grid container mt={15} padding={5} sx={{xs: {direction: 'column'}}}>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Typography variant="h3" color="secondary">
                   Hi {user.firstname}
                 </Typography>
@@ -60,7 +60,7 @@ const Dashboard = () => {
                   <span color="primary"> Member since: </span> {user.createdAt}
                 </Typography>
               </Grid>
-              <Grid item xs={6} >
+              <Grid item xs={12} md={6}>
                 <Grid container justifyContent='center' alignItems='center'>
                   <Grid item p={5} style={{borderStyle: 'solid', borderRadius: 8, borderColor:'#FFC074'}}>
                   {user.role === 'guest' ? (
@@ -84,7 +84,7 @@ const Dashboard = () => {
               </Grid>
 
               <Grid container justifyContent="space-around">
-                <Grid item xs={3}>
+                <Grid item xs={12} md={3}>
                   <Stack
                     direction="row"
                     justifyContent="center"
@@ -99,7 +99,7 @@ const Dashboard = () => {
                   </Stack>
                 </Grid>
 
-                <Grid item xs={7}>
+                <Grid item xs={12} md={7}>
                   <Grid container direction="column">
                     <Grid item>
                       <Typography>

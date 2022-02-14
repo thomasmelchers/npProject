@@ -12,6 +12,7 @@ const TextForm = (props) => {
       variant="outlined"
       InputLabelProps={props.shrink}
       value={props.value}
+      min={props.min}
       onChange={props.onChange}
      ></TextField>
   )

@@ -8,6 +8,12 @@ import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
 import jwt_decode from 'jwt-decode'
 import AuthContext from '../context/AuthContext'
 import InfoCottage from '../components/Typography/InfoCottage'
+import Map from 'react-map-gl'
+import maplibregl from 'maplibre-gl'
+import ButtonMui from '../components/Button/Button'
+import TextForm from '../components/FormComponents/TextForm'
+import getComments from '../actions/useEffect'
+
 
 const Cottage = () => {
   // ABOUT USER
@@ -40,7 +46,7 @@ const Cottage = () => {
   // ABOUT COTTAGE
   const { id } = useParams()
 
-  const [accomodation, setAccomodation] = useState([])
+  /* const [accomodation, setAccomodation] = useState({})
 
   const getAccomodationsData = async () => {
     const data = await axios
@@ -49,13 +55,61 @@ const Cottage = () => {
   }
   useEffect(() => {
     getAccomodationsData()
+  }, []) */
+
+  const url = `${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`
+  const [accomodation, setAccomodation] = useState({})
+  const [location, setLocation] = useState('')
+
+  const handleLocation = () => {
+    setLocation(accomodation.city)
+  }
+
+  useEffect(() => {
+    axios.get(url).then((res) => setAccomodation(res.data.data.accomodation))
+  }, [url])
+
+  useEffect(() => {
+    handleLocation()
   }, [])
 
   console.log(accomodation)
+  /* const location = accomodation && accomodation.city */
+  const country = accomodation && accomodation.country
+  const [fetchData, setFetchData] = useState({})
 
+  // GEO DATA
+  const geoData = async () => {
+    const response = await fetch(
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&types=place&limit=1&access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew`
+    )
+    const data = await response.json()
+    setFetchData(data)
+  }
+
+  useEffect(() => {
+    geoData()
+  }, [])
   // MAPBOX
+  const [viewport, setViewport] = useState({
+    latitude: 23,
+    longitude: -12,
+    zoom: 6,
+    width: '100%',
+    height: '100%',
+  })
 
-https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew
+  const [night, setNight] = useState(0)
+
+  const nightChangeHandler = (event) => {
+    setNight(event.target.value)
+  }
+
+  //COMMENTS
+  const {data} = getComments(`${process.env.REACT_APP_API_URL}api/v1/comments/`)
+  console.log(data)
+
+  const total = night * accomodation.pricePerNight
 
   return (
     <Container>
@@ -79,16 +133,18 @@ https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ
 
             {/* INFO ABOUT THE COTTAGE - LOCATION, TYPE OF COTTAGE, RATINGS */}
 
-            <Grid container px={5}>
+            <Grid container px={5} mt={1}>
               <InfoCottage
-                xs={6} md={4}
+                xs={6}
+                md={4}
                 colorLabel={'primary'}
                 valueLabel={'type of Cottage:'}
                 colorValue={'black'}
                 value={accomodation.typeOfCottage}
               />
               <InfoCottage
-                xs={6} md={4}
+                xs={6}
+                md={4}
                 colorLabel={'primary'}
                 valueLabel={'location:'}
                 colorValue={'black'}
@@ -99,21 +155,24 @@ https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ
                 colorLabel={'primary'}
                 valueLabel={'Ratting:'}
                 colorValue={'black'}
-                value={accomodation.ratting}
+                value={accomodation.rating}
               />
             </Grid>
 
             {/* IMAGE SECTION */}
-            <Grid container p={5}>
-              <Grid xs={12}>
-                <Typography>
-                  Here will be the image of the accomodation
-                </Typography>
-              </Grid>
+            <Grid container pt={2} height={'75vh'}>
+              {/* <Grid xs={12} > */}
+              <img
+                src={`/images/accomodations/faro.jpg`}
+                alt={accomodation.cottageName}
+                width="100%"
+                height="100%"
+              />
+              {/* </Grid> */}
             </Grid>
 
-            <Grid container p={5}>
-              <Grid item xs={12} md={8}>
+            <Grid container justifyContent="space-around" p={5}>
+              <Grid item xs={12} md={7}>
                 <Grid item xs={12}>
                   <Typography
                     variant="h6"
@@ -121,7 +180,7 @@ https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ
                     color="primary"
                     style={{ textTransform: 'uppercase' }}
                   >
-                    Description:
+                    Description
                   </Typography>
                   <Typography textAlign="justify" color="black">
                     {accomodation.description}
@@ -129,11 +188,70 @@ https://api.mapbox.com/geocoding/v5/mapbox.places/paris.json?access_token=pk.eyJ
                 </Grid>
               </Grid>
 
-              <Grid item xs={12} md={4}></Grid>
+              <Grid
+                item
+                xs={12}
+                md={4}
+                p={2}
+                borderColor="#FFC074"
+                style={{
+                  borderStyle: 'solid',
+                  borderRadius: 10,
+                }}
+              >
+                <Grid container justifyContent="center" mb={2}>
+                  <Typography variant="h6" color="primary" textTransform='uppercase'>
+                    Reservation
+                  </Typography>
+                </Grid>
+
+                <Grid container mb={2}>
+                <TextForm
+                  label={'Nb of Night(s)'}
+                  id={'night'}
+                  name={'night'}
+                  type={'number'}
+                  value={night}
+                  min={'0'}
+                  onChange={nightChangeHandler}
+                />
+                </Grid>
+                <Grid container mb={2}>
+                <InfoCottage
+                  xs={12}
+                  md={12}
+                  colorLabel={'primary'}
+                  valueLabel={'Price/Night:'}
+                  colorValue={'black'}
+                  value={`${accomodation.pricePerNight} €`}
+                />
+                </Grid>
+                {total>0 && (
+                <Grid container mb={2}>
+                <InfoCottage
+                  xs={12}
+                  md={12}
+                  colorLabel={'primary'}
+                  valueLabel={'Total'}
+                  colorValue={'black'}
+                  value={`${total} €`}
+                />
+                </Grid>)}
+                <Grid container justifyContent="center">
+                  <ButtonMui buttonName="Book"></ButtonMui>{' '}
+                </Grid>
+              </Grid>
             </Grid>
 
             {/* THE MAP AREA */}
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12} height={'40vh'}>
+              <Map
+                mapboxAccessToken={process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}
+                {...viewport}
+                onviewportChange={(newView) => setViewport(newView)}
+                mapStyle="mapbox://styles/mapbox/outdoors-v11"
+              ></Map>
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
