@@ -1,14 +1,20 @@
 import React from 'react'
 import { styled } from '@mui/system'
 import ModalUnstyled from '@mui/base/ModalUnstyled'
-import { Modal, Box, Typography, Grid, ThemeProvider, Avatar } from '@mui/material'
+import {
+  Modal,
+  Box,
+  Typography,
+  Grid,
+  ThemeProvider,
+  Avatar,
+} from '@mui/material'
 import customTheme from '../../assets/theme'
 import ButtonMui from '../Button/Button'
 import { useState } from 'react'
 import axios from 'axios'
 
 const UpdatePicture = (props) => {
-  
   const userId = props.userId
   const userPicture = props.userPicture
 
@@ -27,8 +33,6 @@ const UpdatePicture = (props) => {
     data.append('userId', userId)
     data.append('file', file)
 
-    console.log(data)
-
     const config = {
       headers: {
         'content-type': 'multipart/form-data',
@@ -39,9 +43,12 @@ const UpdatePicture = (props) => {
 
     await axios
       .post(url, data, config)
-      .then((res) => userPicture = file)
+      .then((res) => {
+        return axios
+          .get(`${process.env.REACT_APP_API_URL}api/v1/users/${userId}`)
+          .then((res) => console.log(res))
+      })
       .catch((err) => console.log(err))
-
   }
 
   return (
@@ -62,31 +69,30 @@ const UpdatePicture = (props) => {
         </Grid>
 
         <Grid item xs={12}>
-        <Box component="form" noValidate onSubmit={submitHandler}>
-          <Grid
-            container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Grid item xs={12}>
-              <input
-                type="file"
-                name="file"
-                id="file"
-                onChange={OnInputChange}
-              />
+          <Box component="form" noValidate onSubmit={submitHandler}>
+            <Grid
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Grid item xs={12}>
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  onChange={OnInputChange}
+                />
+              </Grid>
+              <Grid item xs={12} mt={3}>
+                <ButtonMui
+                  type={'submit'}
+                  buttonName={'Upload Picture'}
+                ></ButtonMui>
+              </Grid>
             </Grid>
-            <Grid item xs={12} mt={3}>
-              <ButtonMui
-                type={'submit'}
-                buttonName={'Upload Picture'}
-              ></ButtonMui>
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
         </Grid>
-
       </Grid>
     </ThemeProvider>
   )
