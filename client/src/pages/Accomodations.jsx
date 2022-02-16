@@ -4,9 +4,11 @@ import { Container, Grid, ThemeProvider, Typography, Link } from '@mui/material'
 import axios from 'axios'
 import customTheme from '../assets/theme'
 import { useSearchParams } from 'react-router-dom'
+import averageRatings from '../actions/averageRatings'
 
 const Accomodations = () => {
-  const location = '<The Location>'
+
+  // ACCOMODATION INFO
   const [accomodation, setAccomodation] = useState([])
 
   const getAccomodationsData = async () => {
@@ -19,6 +21,23 @@ const Accomodations = () => {
   useEffect(() => {
     getAccomodationsData()
   }, [])
+
+  // AVERAGE RATING 
+  
+  /* for (i=0; i<accomodation.length ; i++){
+  const [average[i], setAverage[i]] = useState([])
+  let i
+  
+  const handleAverage = async () => {
+    await setAverage[i](averageRatings(accomodation[i].ratings)) 
+  }
+}
+  useEffect(()=> {
+    handleAverage()
+  }) */
+  
+
+  console.log(accomodation)
 
   return (
     <main>
@@ -36,11 +55,10 @@ const Accomodations = () => {
                     <SearchCard
                       cottageName={e.cottageName}
                       city={e.city}
-                      price={e.price}
+                      price={e.pricePerNight}
                       summary={e.summary}
                       picture={e.picture}
-                      ratings={e.ratings}
-                      key={index}
+                      /* ratings={average} */
                     ></SearchCard>
                   </Link>
                 </Grid>

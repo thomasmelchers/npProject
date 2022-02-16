@@ -3,8 +3,6 @@ import SearchBar from '../components/SearchBar/SearchBar'
 import { Typography, Grid, Container, Paper } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import SpaIcon from '@mui/icons-material/Spa'
-import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
 import jwt_decode from 'jwt-decode'
 import AuthContext from '../context/AuthContext'
 import InfoCottage from '../components/Typography/InfoCottage'
@@ -13,7 +11,12 @@ import maplibregl from 'maplibre-gl'
 import ButtonMui from '../components/Button/Button'
 import TextForm from '../components/FormComponents/TextForm'
 import getComments from '../actions/useEffect'
+import averageRatings from '../actions/averageRatings'
 
+// ICONS
+import SpaIcon from '@mui/icons-material/Spa'
+import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
+import StarIcon from '@mui/icons-material/Star';
 
 const Cottage = () => {
   // ABOUT USER
@@ -59,6 +62,11 @@ const Cottage = () => {
 
   const url = `${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`
   const [accomodation, setAccomodation] = useState({})
+
+  useEffect(() => {
+    axios.get(url).then((res) => setAccomodation(res.data.data.accomodation))
+  }, [url])
+
   const [location, setLocation] = useState('')
 
   const handleLocation = () => {
@@ -66,12 +74,21 @@ const Cottage = () => {
   }
 
   useEffect(() => {
-    axios.get(url).then((res) => setAccomodation(res.data.data.accomodation))
-  }, [url])
-
-  useEffect(() => {
     handleLocation()
   }, [])
+
+  // AVERAGE RATINGS
+  const [average, setAverage] = useState('')
+
+  const handleAverage = async () => {
+    await setAverage(averageRatings(accomodation.ratings)) 
+  }
+
+  useEffect(()=> {
+    handleAverage()
+  })
+
+  console.log(average)
 
   /* const location = accomodation && accomodation.city */
   const country = accomodation.country && accomodation.country
@@ -155,10 +172,10 @@ const Cottage = () => {
               <InfoCottage
                 xs={12}
                 colorLabel={'primary'}
-                valueLabel={'Ratting:'}
+                valueLabel={'Rating Average:'}
                 colorValue={'black'}
-                value={accomodation.rating}
-              />
+                value={`${average}/5`}
+              /> 
             </Grid>
 
             {/* IMAGE SECTION */}

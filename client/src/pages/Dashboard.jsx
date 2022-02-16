@@ -74,8 +74,6 @@ const Dashboard = () => {
     handleAverage()
   })
 
-  console.log(average)
-
   return (
     <main>
         <Container>

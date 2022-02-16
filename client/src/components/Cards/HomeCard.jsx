@@ -7,8 +7,6 @@ import {
   Typography,
   Link
 } from '@mui/material'
-import { ThemeProvider } from '@mui/material'
-import customTheme from '../../assets/theme'
 
 const HomeCard = (props) => {
 const id = props.id
@@ -29,7 +27,6 @@ const id = props.id
               backgroundColor: 'rgba(255, 192, 116, 0.4)',
             }}
           >
-             <ThemeProvider theme={customTheme}>
             <Typography gutterBottom variant="h5" color='primary'component="div">
               {props.cottageName}
             </Typography>
@@ -47,7 +44,6 @@ const id = props.id
             >
               {props.summary}
             </Typography>
-            </ThemeProvider>
           </CardContent>
         </CardActionArea>
       </Card>
