@@ -265,37 +265,96 @@ const Dashboard = () => {
                       <Paper variant="outlined" borderColor="secondary">
                         <Grid container padding={3}>
                           <Grid item xs={12} md={5}>
-                            <img src={'/images/accomodations/faro.jpg'} label={accomodationByUser[0].cottageName} width='100%' height='100%'/>
+                            <img
+                              src={'/images/accomodations/faro.jpg'}
+                              label={accomodationByUser[0].cottageName}
+                              width="100%"
+                              height="100%"
+                            />
                           </Grid>
-                          <Grid item xs={12} md={7} pl={{md: 3}}>
+                          <Grid item xs={12} md={7} pl={{ md: 3 }}>
                             <Grid container direction="column">
-                              <Grid item> 
-                              <Typography variant='h6' color='primary' textTransform='uppercase'>{accomodationByUser[0].cottageName}</Typography>
-                              <Typography color='secondary' textTransform='uppercase' fontWeight={500} mb={0.5}> {accomodationByUser[0].city} - {accomodationByUser[0].country}</Typography>
-                              <InfoCottage valueLabel={'Price/Night:'} colorLabel={'primary'} value={`${accomodationByUser[0].pricePerNight}€`} colorValue={'black'}></InfoCottage>
-                              <InfoCottage valueLabel={'Average Rating:'} colorLabel={'primary'} value={`${accomodationByUser[0].ratings}/5`} colorValue={'black'}></InfoCottage>
-                              <InfoCottage display={{xs: 'none', md: 'flex'}} valueLabel={'Nb of Comments:'} colorLabel={'primary'} value={accomodationByUser[0].comments} colorValue={'black'}></InfoCottage>
-                              <Typography color='primary' textTransform='uppercase' fontWeight={500}>description:</Typography>
-                              <Typography display={{xs: 'flex', md: 'none'}}> {accomodationByUser[0].summary}</Typography>
-                              <Typography display={{xs: 'none', md: 'flex'}} textAlign='justify'> {accomodationByUser[0].description}</Typography>
+                              <Grid item>
+                                <Typography
+                                  variant="h6"
+                                  color="primary"
+                                  textTransform="uppercase"
+                                >
+                                  {accomodationByUser[0].cottageName}
+                                </Typography>
+                                <Typography
+                                  color="secondary"
+                                  textTransform="uppercase"
+                                  fontWeight={500}
+                                  mb={0.5}
+                                >
+                                  {' '}
+                                  {accomodationByUser[0].city} -{' '}
+                                  {accomodationByUser[0].country}
+                                </Typography>
+                                <InfoCottage
+                                  valueLabel={'Price/Night:'}
+                                  colorLabel={'primary'}
+                                  value={`${accomodationByUser[0].pricePerNight}€`}
+                                  colorValue={'black'}
+                                ></InfoCottage>
+                                <InfoCottage
+                                  valueLabel={'Average Rating:'}
+                                  colorLabel={'primary'}
+                                  value={`${accomodationByUser[0].ratings}/5`}
+                                  colorValue={'black'}
+                                ></InfoCottage>
+                                <InfoCottage
+                                  display={{ xs: 'none', md: 'flex' }}
+                                  valueLabel={'Nb of Comments:'}
+                                  colorLabel={'primary'}
+                                  value={accomodationByUser[0].comments}
+                                  colorValue={'black'}
+                                ></InfoCottage>
+                                <Typography
+                                  color="primary"
+                                  textTransform="uppercase"
+                                  fontWeight={500}
+                                >
+                                  description:
+                                </Typography>
+                                <Typography
+                                  display={{ xs: 'flex', md: 'none' }}
+                                >
+                                  {' '}
+                                  {accomodationByUser[0].summary}
+                                </Typography>
+                                <Typography
+                                  display={{ xs: 'none', md: 'flex' }}
+                                  textAlign="justify"
+                                >
+                                  {' '}
+                                  {accomodationByUser[0].description}
+                                </Typography>
                               </Grid>
                               <Grid item mt={3}>
-                                <Link
-                                   href={`/cottage/${accomodationByUser[0]._id}`}
-                                  underline="none"
-                                >
-                                  <ButtonMui
-                                    buttonName={'See my Cottage'}
-                                  />
-                                </Link>
-                                <Link
-                                   href={`/manage-my-cottage/${accomodationByUser[0]._id}`}
-                                  underline="none"
-                                >
-                                  <ButtonMui
-                                    buttonName={'Manage my Cottage'}
-                                  />
-                                </Link>
+                                <Grid container justifyContent={{xs:'center', md: 'space-around'}} alignItems={{xs: 'center'}}>
+                                  <Grid>
+                                    <Link
+                                      href={`/cottage/${accomodationByUser[0]._id}`}
+                                      underline="none"
+                                    >
+                                      <ButtonMui
+                                        buttonName={'See my Cottage'}
+                                      />
+                                    </Link>
+                                  </Grid>
+                                  <Grid>
+                                    <Link
+                                      href={`/manage-my-cottage/${accomodationByUser[0]._id}`}
+                                      underline="none"
+                                    >
+                                      <ButtonMui
+                                        buttonName={'Manage my Cottage'}
+                                      />
+                                    </Link>
+                                  </Grid>
+                                </Grid>
                               </Grid>
                             </Grid>
                           </Grid>
