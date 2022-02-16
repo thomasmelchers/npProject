@@ -12,7 +12,7 @@ import customTheme from '../../assets/theme'
 
 const HomeCard = (props) => {
 const id = props.id
-console.log(id)
+
   return (
     <Link href={`/cottage/${id}`} underline='none'>
       <Card sx={{ maxWidth: 500, height: 400 }}>
@@ -20,7 +20,7 @@ console.log(id)
           <CardMedia
             component="img"
             height="200"
-            image={props.picture}
+            image='images/accomodations/faro.jpg'
             alt={props.cottageName}
           />
           <CardContent

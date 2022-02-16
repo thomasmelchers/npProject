@@ -19,14 +19,12 @@ const SearchCard = (props) => {
     <Grid
       container
       direction="row"
-      height="25vh"
-      
-      /* style={{ borderStyle: 'dotted', borderColor: 'black' }} */
+      height={{md: "25vh", sx: "50vh"}}
     >
-      <Grid item xs={12} md={4} /* style={{ borderStyle: 'dotted', borderColor: 'red' }} */>
-        <img src={props.picture} alt={props.cottageName} width="100%" />
+      <Grid item xs={12} md={4} height='100%'>
+        <img src='images/accomodations/faro.jpg' alt={props.cottageName} height='100%' width='100%' />
       </Grid>
-      <Grid item xs={12} md={8} padding={3}/* style={{ borderStyle: 'dotted', borderColor: 'green' }} */>
+      <Grid item xs={12} md={8} padding={3} height='100%'/* style={{ borderStyle: 'dotted', borderColor: 'green' }} */>
         <Grid container direction="row" justifyContent="space-between" >
           <Grid item /* style={{ borderStyle: 'dotted', borderColor: 'blue' }} */>
             <Typography variant="h4" color='primary'>{props.cottageName}</Typography>
