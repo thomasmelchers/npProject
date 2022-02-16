@@ -20,6 +20,7 @@ import getUser_Logout from '../../actions/getUser_Logout'
 import AuthContext from '../../context/AuthContext'
 
 const NavBar = (props) => {
+  
   // MENU UNDER THE PICTURE
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
@@ -32,9 +33,6 @@ const NavBar = (props) => {
     setAnchorElUser(null)
   }
 
-  /*  const user_Id = user._id
-  const userPicture = user.picture */
-
   // MODAL - OPEN CLOSE FUNCTIONS
   const [open, setOpen] = React.useState(false)
   const handleOpen = () => setOpen(true)
@@ -46,6 +44,8 @@ const NavBar = (props) => {
 
   return (
     <AppBar position="fixed" theme={customTheme} color="primary">
+
+      {/* -------------- TITLE --------------- */}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href={'/'} underline="none">
@@ -81,13 +81,18 @@ const NavBar = (props) => {
             </Link>
           </Typography>
 
+          {/* EMPTY BOX */}
+
+          <Box flexGrow={1}></Box>
+
+          {/* ----------------- BUTTONS SIGN IN SIGN UP ----------------- */}
+
           {!isLoggedIn && (
             <Box
               sx={{
-                flexGrow: 1,
-                justifyContent: 'flex-end',
-                mr: 3,
                 display: { xs: 'none', md: 'flex' },
+                alignSelf: 'flex-end',
+                mr: 3,
               }}
             >
               <Button
@@ -95,11 +100,11 @@ const NavBar = (props) => {
                 theme={customTheme}
                 sx={[
                   { my: 2, color: 'white', display: 'block' },
-                  (customTheme) => ({
+                  /* (customTheme) => ({
                     '&:hover': {
                       color: customTheme.palette.secondary.main,
                     },
-                  }),
+                  }), */
                 ]}
               >
                 Sign Up
@@ -123,13 +128,11 @@ const NavBar = (props) => {
               <SignInModal open={open1} onClose={handleClose1} />
             </Box>
           )}
-          <Box
-            display="flex"
-            alignItems="flex-end"
-            style={{ borderStyle: 'dotted' }}
-            sx={{ flexGrow: 0 }}
-          >
-            <Tooltip title="Open settings">
+
+          {/* ---------------------- MENU ON THE RIGHT------------------- */}
+
+          <Box>
+            <Tooltip title="Open settings" >
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* {!isLoggedIn ? ( */}
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -138,6 +141,9 @@ const NavBar = (props) => {
                 )} */}
               </IconButton>
             </Tooltip>
+
+            {/* MENU */}
+
             <Menu
               sx={{ mt: '45px' }}
               id="menu-appbar"
@@ -154,6 +160,9 @@ const NavBar = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
+              
+              {/* MENU ITEMS */}
+
               {!isLoggedIn && (
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography
@@ -205,9 +214,12 @@ const NavBar = (props) => {
                   </Link>
                 </MenuItem>
               )}
+
             </Menu>
           </Box>
         </Toolbar>
+
+
       </Container>
     </AppBar>
   )
