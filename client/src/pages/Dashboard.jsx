@@ -68,8 +68,10 @@ const Dashboard = () => {
 
   return (
     <main>
-      <ThemeProvider theme={customTheme}>
         <Container>
+
+          {/*  ------------------------------------ NAME SECTION  ---------------------------- */}
+
           <Paper elevation={5}>
             <Grid
               container
@@ -85,7 +87,9 @@ const Dashboard = () => {
                   <span color="primary"> Member since: </span> {user.createdAt}
                 </Typography>
               </Grid>
-              <Grid item xs={12} md={6}>
+
+
+              <Grid item xs={12} md={6} mt={{xs: 5, md: 0}}>
                 <Grid container justifyContent="center" alignItems="center">
                   <Grid
                     item
@@ -118,7 +122,9 @@ const Dashboard = () => {
               </Grid>
             </Grid>
           </Paper>
+          {/*  ------------------------------------ NAME SECTION - end ---------------------------- */}
 
+          {/*  ------------------------------------ ABOUT ME SECTION - START ---------------------------- */}
           <Paper elevation={5}>
             <Grid container mt={5} padding={5}>
               <Grid item xs={12}>
@@ -169,8 +175,12 @@ const Dashboard = () => {
             </Grid>
           </Paper>
 
+          {/*  ------------------------------------ ABOUT ME SECTION - END ---------------------------- */}
+
+          {/*  ------------------------------------ GUEST SECTION - START ---------------------------- */}
+
+          {/*  ---------------------------- GUEST SECTION - RESERVATION - START ---------------------- */}   
           {user.role === 'guest' && (
-            // GUEST AREA
 
             <Paper elevation={5}>
               <Grid container mt={5} p={5}>
@@ -208,7 +218,9 @@ const Dashboard = () => {
             </Paper>
           )}
 
-          {/* //LIKE PARTS */}
+          {/*  ---------------------------- GUEST SECTION - RESERVATION - END ---------------------- */}
+
+          {/*  ---------------------------- GUEST SECTION - LIKE - START ---------------------- */}
 
           {user.role === 'guest' && (
             <Paper elevation={5}>
@@ -247,9 +259,10 @@ const Dashboard = () => {
             </Paper>
           )}
 
-          {/* HOST AREA */}
+          {/*  -------------------------------- GUEST SECTION  - END ---------------------- */}
 
-          {/* MANAGING COTTAGE */}
+          {/*  -------------------------------- HOST SECTION  - START ---------------------- */}
+          {/*  ----------------------- HOST SECTION - COTTAGE MANAGING  - START ---------------------- */}
           {user.role === 'host' && (
             <Paper elevation={5}>
               <Grid container mt={5} p={5}>
@@ -332,9 +345,11 @@ const Dashboard = () => {
                                   {accomodationByUser[0].description}
                                 </Typography>
                               </Grid>
+
+                              {/* BUTTONS SECTION */}
                               <Grid item mt={3}>
                                 <Grid container justifyContent={{xs:'center', md: 'space-around'}} alignItems={{xs: 'center'}}>
-                                  <Grid>
+                                  <Grid item>
                                     <Link
                                       href={`/cottage/${accomodationByUser[0]._id}`}
                                       underline="none"
@@ -344,7 +359,7 @@ const Dashboard = () => {
                                       />
                                     </Link>
                                   </Grid>
-                                  <Grid>
+                                  <Grid item mt={{xs: 3, md: 0}}>
                                     <Link
                                       href={`/manage-my-cottage/${accomodationByUser[0]._id}`}
                                       underline="none"
@@ -366,7 +381,9 @@ const Dashboard = () => {
             </Paper>
           )}
 
-          {/* SEE THE BOOKINGS */}
+          {/*  ----------------------- HOST SECTION - COTTAGE MANAGING - END ---------------------- */}
+          
+          {/*  ----------------------- HOST SECTION - BOOKINGS MANAGING  - START ---------------------- */}
 
           {user.role === 'host' && (
             <Paper elevation={5}>
@@ -414,7 +431,6 @@ const Dashboard = () => {
             </Paper>
           )}
         </Container>
-      </ThemeProvider>
     </main>
   )
 }
