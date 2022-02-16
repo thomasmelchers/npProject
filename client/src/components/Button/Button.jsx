@@ -19,7 +19,7 @@ export default function ButtonMui(props) {
     <Button
       className={classes.root}
       onClick={props.onClick}
-      size="large"
+      size={props.size}
       type={props.type}
       color={props.color}
       variant="contained"

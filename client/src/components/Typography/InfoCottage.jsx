@@ -2,9 +2,9 @@ import { Typography, Grid } from '@mui/material'
 import React from 'react'
 
 
-const InfoCottage = ({xs, md, valueLabel, colorLabel, value, colorValue}) => {
+const InfoCottage = ({display, xs, md, valueLabel, colorLabel, value, colorValue}) => {
   return (
-    <Grid container flex item xs={xs} md={md}>
+    <Grid container flex item xs={xs} md={md} display={display}>
       <Typography
         color={colorLabel}
         mr={1}
