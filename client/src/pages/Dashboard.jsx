@@ -7,14 +7,12 @@ import {
   Typography,
   Avatar,
   Stack,
-  ThemeProvider,
   Paper,
   Link,
 } from '@mui/material'
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined'
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined'
 import QuestionAnswerOutlinedIcon from '@mui/icons-material/QuestionAnswerOutlined'
-import customTheme from '../assets/theme'
 import ButtonMui from '../components/Button/Button'
 import jwt_decode from 'jwt-decode'
 import { useState, useEffect } from 'react'
@@ -23,6 +21,7 @@ import averageRatings from '../actions/averageRatings'
 import InfoCottage from '../components/Typography/InfoCottage'
 
 const Dashboard = () => {
+
   // USER DATAS
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
@@ -64,7 +63,18 @@ const Dashboard = () => {
     getAccomodation()
   }, [])
 
-  console.log(accomodationByUser)
+  // AVERAGE RATINGS
+  const [average, setAverage] = useState('')
+
+  const handleAverage = async () => {
+    await setAverage(averageRatings(accomodationByUser[0].ratings)) 
+  }
+
+  useEffect(()=> {
+    handleAverage()
+  })
+
+  console.log(average)
 
   return (
     <main>
@@ -314,7 +324,7 @@ const Dashboard = () => {
                                 <InfoCottage
                                   valueLabel={'Average Rating:'}
                                   colorLabel={'primary'}
-                                  value={`${accomodationByUser[0].ratings}/5`}
+                                  value={`${average}/5`}
                                   colorValue={'black'}
                                 ></InfoCottage>
                                 <InfoCottage
