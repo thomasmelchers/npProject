@@ -4,9 +4,37 @@ const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
 
 module.exports.getAllAccomodations = catchAsync(async (req, res, next) => {
-  const accomodations = await AccomodationModel.find()
+
+  // 1. Filtering data
+  const queryObj= {...req.query}
+
+  // Excluding some fieds
+  const excludeFields = ['page', 'sort', 'limit', 'fields']
+  excludeFields.forEach(el => delete queryObj)
+
+  // THE QUERY
+  let query = AccomodationModel.find(queryObj)
+
+  // 2. Sorting
+  if (req.query.sort) {
+    query = query.sort(req.query.sort)
+  } else {
+    query = query.sort('-createdAt')
+  }
+
+  // 3. Fields limiting
+  if (req.query.fields) {
+    const fields = req.query.fields.split(',').join(' ')
+    query = query.select(fields)
+  } else {
+    query = query. select('-__v')
+  }
+
+  // PASSING THE QUERY
+  const accomodations = await query
   res.status(201).json({
     status: 'success',
+    result: accomodations.length,
     data: {
       Accomodations: accomodations,
     },

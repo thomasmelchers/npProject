@@ -4,7 +4,34 @@ const catchAsync = require('../utils/catchAsync')
 
 module.exports.getAllUsers = catchAsync(async (req, res, next) => {
   /* try { */
-  const users = await UserModel.find()
+
+  // 1. Filtering data
+  const queryObj= {...req.query}
+
+  // Excluding some fieds
+  const excludeFields = ['page', 'sort', 'limit', 'fields']
+  excludeFields.forEach(el => delete queryObj)
+
+  // QUERY
+  let query = UserModel.find(queryObj)
+  
+  // 2. Sorting
+  if (req.query.sort) {
+    query = query.sort(req.query.sort)
+  } else {
+    query = query.sort('-createdAt')
+  }
+
+  // 3. Fields limiting
+    if (req.query.fields) {
+      const fields = req.query.fields.split(',').join(' ')
+      query = query.select(fields)
+    } else {
+      query = query. select('-__v')
+    }
+
+  // PASSING THE QUERY
+  const users = await query
   res.status(200).json({
     status: 'success',
     result: users.length,
