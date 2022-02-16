@@ -130,7 +130,7 @@ const userSchema = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: './client/assets/pictures/users/default-user.png',
+      default: 'default-user.png',
     },
     passwordChangedAt: {
       type: Date

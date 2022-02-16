@@ -78,6 +78,7 @@ const accomodationSchema = new mongoose.Schema({
   },
   pictures: {
     type: String,
+    default: 'default.png'
   },
   ratings: {
     type: [Number],
