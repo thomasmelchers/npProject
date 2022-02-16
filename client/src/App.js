@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import Cottage from './pages/Cottage'
 import AddCottage from './pages/AddCottage'
 import Accomodations from './pages/Accomodations'
+import ManageMyCottage from './pages/ManageMyCottage'
 import ErrorPage from './pages/ErrorPage'
 import AuthContext from './context/AuthContext'
 
@@ -31,7 +32,7 @@ function App() {
           <Route path="/accomodations" element={<Accomodations />} />
 
           {isLoggedIn ? (
-            <Route path="/add-cottage" element={<AddCottage />} />
+            <Route path="/manage-my-cottage/:id" element={<ManageMyCottage />} />
           ) : (
             <Route path="/" element={<Home />} />
           )}
