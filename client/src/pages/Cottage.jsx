@@ -73,9 +73,9 @@ const Cottage = () => {
     handleLocation()
   }, [])
 
-  console.log(accomodation)
   /* const location = accomodation && accomodation.city */
-  const country = accomodation && accomodation.country
+  const country = accomodation.country && accomodation.country
+  console.log(country)
   const [fetchData, setFetchData] = useState({})
 
   // GEO DATA
@@ -99,16 +99,18 @@ const Cottage = () => {
     height: '100%',
   })
 
-  const [night, setNight] = useState(0)
-
-  const nightChangeHandler = (event) => {
-    setNight(event.target.value)
-  }
+  
 
   //COMMENTS
   const {data} = getComments(`${process.env.REACT_APP_API_URL}api/v1/comments/`)
   console.log(data)
 
+  // PRICE PER NIGHT
+  const [night, setNight] = useState(0)
+
+  const nightChangeHandler = (event) => {
+    setNight(event.target.value)
+  }
   const total = night * accomodation.pricePerNight
 
   return (
@@ -188,11 +190,14 @@ const Cottage = () => {
                 </Grid>
               </Grid>
 
+              {/* // PRICE */}
+
               <Grid
                 item
                 xs={12}
                 md={4}
                 p={2}
+                mt={{xs:4}}
                 borderColor="#FFC074"
                 style={{
                   borderStyle: 'solid',
