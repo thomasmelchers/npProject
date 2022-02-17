@@ -18,7 +18,7 @@ import useSignUpForm from './useSignUpForm'
 import validate from './ValidationSignUpForm'
 
 const Sign_Up = () => {
-
+  
     const {handleChange, values, handleSumit, errors, isSubmitting} = useSignUpForm(validate)
   return (
     <Container>

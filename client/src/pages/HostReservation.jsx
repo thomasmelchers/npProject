@@ -21,6 +21,20 @@ const HostReservation = () => {
   }, [])
   console.log(accomodation)
 
+  const date = new Date(2018, 8, 23)
+  if (!(date)) {
+    return ('Date of Birth required')
+  } else {
+    function isDate18orMoreYearsOld() {
+      let date = new Date(date)
+      let year = date.getFullYear();
+      let month = date.getMonth();
+      let day = date.getDate()
+      return (!(new Date(year+18, month-1, day) <= new Date()))
+    }
+    return ('You should have 18 years old to register') 
+  }
+
   return <div>THIS IS THE HOST RESERVATION DASHBOARD
     <Sign_Up></Sign_Up>
   </div>;

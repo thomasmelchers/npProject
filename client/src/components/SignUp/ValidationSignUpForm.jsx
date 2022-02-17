@@ -1,6 +1,14 @@
 export default function validationSignUpForm(values) {
   let errors = {}
 
+  function isDate18orMoreYearsOld(d) {
+    let date = new Date(d)
+    let year = date.getFullYear()
+    let month = date.getMonth()
+    let day = date.getDate()
+    return new Date(year + 18, month - 1, day) <= new Date()
+  }
+
   if (!values.role) {
     errors.role = 'Role required'
   }
@@ -16,14 +24,9 @@ export default function validationSignUpForm(values) {
   if (!values.dateOfBirth) {
     errors.dateOfBirth = 'Gender required'
   } else {
-    function isDate18orMoreYearsOld() {
-      let date = new Date(values.dateOfBirth)
-      let year = date.getFullYear();
-      let month = date.getMonth();
-      let day = date.getDate()
-      return new Date(year+18, month-1, day) <= new Date();
+    if (isDate18orMoreYearsOld(values.dateOfBirth) === false) {
+      errors.dateOfBirth = 'You should have 18 years old to register'
     }
-    errors.dateOfBirth = 'You should have 18 years old to register'
   }
 
   if (!values.gender) {
