@@ -56,9 +56,10 @@ const useSignUpForm = (validate) => {
         url: `${process.env.REACT_APP_API_URL}api/v1/users/register`,
         data: user,
       })
-      .then(setIsSubmitting(true))
+
+      /* await setIsSubmitting(true) */
       
-      /* window.location = '/' */
+      window.location = '/'
   }
   console.log (isSubmitting)
   return {handleChange, values, handleSumit, errors, isSubmitting}
