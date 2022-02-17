@@ -17,9 +17,9 @@ import countries from '../../data/countries.json'
 import useSignUpForm from './useSignUpForm'
 import validate from './ValidationSignUpForm'
 
-const Sign_Up = () => {
+const SignUp = ({formHasBeenSubmit}) => {
   
-    const {handleChange, values, handleSumit, errors, isSubmitting} = useSignUpForm(validate)
+    const {handleChange, values, handleSumit, errors, isSubmitting} = useSignUpForm(formHasBeenSubmit, validate)
   return (
     <Container>
     <Box component="form" noValidate onSubmit={handleSumit}>
@@ -256,4 +256,4 @@ const Sign_Up = () => {
   )
 }
 
-export default Sign_Up
+export default SignUp

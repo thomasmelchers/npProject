@@ -18,6 +18,7 @@ import SignUpModal from '../Modals/SignUpModal'
 import SignInModal from '../Modals/SignInModal'
 import getUser_Logout from '../../actions/getUser_Logout'
 import AuthContext from '../../context/AuthContext'
+import useSignUpForm from '../SignUp/useSignUpForm'
 
 const NavBar = (props) => {
   

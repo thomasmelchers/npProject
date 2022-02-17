@@ -40,13 +40,11 @@ export default function FormSignUp() {
     })
     .then((res)=> {
       return [authContext.login(res.data.token)/* , authContext.getUser(res.data.data.user) */ ] 
-      }
-      )
+      })
       .catch((err) => console.log(err))
   }
 
   return (
-    <ThemeProvider theme={customTheme}>
       <Container>
         <Box component="form" noValidate onSubmit={submitHandler}>
           <Grid
@@ -106,6 +104,5 @@ export default function FormSignUp() {
           </Grid>
         </Box>
       </Container>
-    </ThemeProvider>
   )
 }

@@ -33,6 +33,7 @@ const useSignUpForm = (validate) => {
       e.preventDefault()
 
       setErrors(validate(values))
+      
 
       const user = {
         role: values.role,
@@ -49,7 +50,6 @@ const useSignUpForm = (validate) => {
         password: values.password,
         passwordConfirm: values.passwordConfirm,
       }
-      console.log(user)
 
       await axios({
         method: 'post',
@@ -58,9 +58,9 @@ const useSignUpForm = (validate) => {
       })
       .then(setIsSubmitting(true))
       
-      window.location = '/'
+      /* window.location = '/' */
   }
-
+  console.log (isSubmitting)
   return {handleChange, values, handleSumit, errors, isSubmitting}
 }
 
