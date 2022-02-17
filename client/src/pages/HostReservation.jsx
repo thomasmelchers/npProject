@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Sign_Up from '../components/SignUp/SignUp';
+
 
 
 const HostReservation = () => {
@@ -19,7 +21,9 @@ const HostReservation = () => {
   }, [])
   console.log(accomodation)
 
-  return <div>THIS IS THE HOST RESERVATION DASHBOARD</div>;
+  return <div>THIS IS THE HOST RESERVATION DASHBOARD
+    <Sign_Up></Sign_Up>
+  </div>;
 };
 
 export default HostReservation

@@ -100,11 +100,6 @@ const NavBar = (props) => {
                 theme={customTheme}
                 sx={[
                   { my: 2, color: 'white', display: 'block' },
-                  /* (customTheme) => ({
-                    '&:hover': {
-                      color: customTheme.palette.secondary.main,
-                    },
-                  }), */
                 ]}
               >
                 Sign Up

@@ -1,5 +1,5 @@
 import React from 'react'
-import SignUp from '../SignUp/SignUpForm'
+import SignUp from '../SignUp/SignUp'
 import { Box, styled } from '@mui/system'
 import ModalUnstyled from '@mui/base/ModalUnstyled';
 
