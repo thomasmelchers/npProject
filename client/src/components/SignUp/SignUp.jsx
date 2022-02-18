@@ -19,7 +19,8 @@ import validate from './ValidationSignUpForm'
 
 const SignUp = ({formHasBeenSubmit}) => {
   
-    const {handleChange, values, handleSumit, errors, isSubmitting} = useSignUpForm(/* formHasBeenSubmit, */ validate)
+  const {handleChange, values, handleSumit, errors, isSubmitting} = useSignUpForm(formHasBeenSubmit, validate)
+  
   return (
     <Container>
     <Box component="form" noValidate onSubmit={handleSumit}>

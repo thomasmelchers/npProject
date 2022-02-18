@@ -7,7 +7,7 @@ import customTheme from '../../assets/theme'
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
 
-export default function FormSignUp() {
+export default function FormSignUp({marginButton, marginTextField, marginTitle, size}) {
   const authContext = useContext(AuthContext)
 
   const [email, setEmail] = useState('')
@@ -63,6 +63,7 @@ export default function FormSignUp() {
               variant="h4"
               color="secondary"
               mb={2}
+              mb={marginTitle}
             >
               Sign In
             </Typography>
@@ -82,7 +83,7 @@ export default function FormSignUp() {
                 onChange={emailChangeHandler}
               />
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={7} mt={marginTextField}>
               <TextField
                 label="Password"
                 id="password"
@@ -95,10 +96,11 @@ export default function FormSignUp() {
                 onChange={passwordChangeHandler}
               />
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={7} mt={marginButton}>
               <ButtonMui
                 type={'submit'}
                 buttonName="Sign In"
+                size={size}
               ></ButtonMui>
             </Grid>
           </Grid>

@@ -1,7 +1,7 @@
-import { useState, UseEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 
-const useSignUpForm = (validate) => {
+const useSignUpForm = (callback, validate) => {
   const [values, setValues] = useState({
     role: '',
     firstname: '',
@@ -33,7 +33,7 @@ const useSignUpForm = (validate) => {
       e.preventDefault()
 
       setErrors(validate(values))
-      
+      setIsSubmitting(true)
 
       const user = {
         role: values.role,
@@ -57,10 +57,18 @@ const useSignUpForm = (validate) => {
         data: user,
       })
 
-      /* await setIsSubmitting(true) */
-      
-      window.location = '/'
+      /* window.location = '/' */
   }
+
+  useEffect(
+    () => {
+      if (Object.keys(errors).length === 0 && isSubmitting) {
+        callback();
+      }
+    },
+    [errors]
+  );
+
   console.log (isSubmitting)
   return {handleChange, values, handleSumit, errors, isSubmitting}
 }

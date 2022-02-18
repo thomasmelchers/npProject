@@ -1,14 +1,13 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import SignUp from '../SignUp/SignUp'
 import { Box, styled } from '@mui/system'
-import ModalUnstyled from '@mui/base/ModalUnstyled';
+import ModalUnstyled from '@mui/base/ModalUnstyled'
 import Login from '../Login/Login'
-import { Typography, Grid } from '@mui/material';
+import { Typography, Grid } from '@mui/material'
+import Cross from './ CrosstoClose'
 
-
-const SignUpModal = ({open, onClose}) => {
-
-    const StyledModal = styled(ModalUnstyled)`
+const SignUpModal = ({ open, onClose }) => {
+  const StyledModal = styled(ModalUnstyled)`
     position: fixed;
     z-index: 1300;
     right: 0;
@@ -33,22 +32,23 @@ const SignUpModal = ({open, onClose}) => {
   const styleSignUp = {
     bgcolor: 'white',
     borderRadius: 3,
+    position: 'relative',
     p: 2,
     px: 4,
     pb: 3,
-    /* height: '65%', */
+    /* height: '85%' ,*/
     width: {
       sx: 800,
       md: 500,
       lg: 650,
-    }
+    },
   }
-/* const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
- const formHasBeenSubmit = () => {
-  setIsSubmitted(true)
-
- } */
+  const formHasBeenSubmit = () => {
+    setIsSubmitted(true)
+  }
+  console.log(isSubmitted)
 
   return (
     <StyledModal
@@ -58,15 +58,53 @@ const SignUpModal = ({open, onClose}) => {
       onClose={onClose}
       BackdropComponent={Backdrop}
     >
-      <Box display='flex' alignItems='center' sx={styleSignUp}>
-       {/*  {isSubmitted === false? ( */}
-        <SignUp /* formHasBeenSubmit={formHasBeenSubmit} *//>{/* ):(
-        <Grid container justifyContent='center'>
-        <Typography color='primary' textTransform='uppercase' p={3} fontWeight={600} textAlign='center' backgroundColor='rgba(1, 147, 124, 0.2)' style={{borderStyle: 'solid', borderColor: 'primary', borderRadius: 5}}>Your account has been created ! <br/> Welcome to Green Cottages </Typography>
-        <Login/>
+      <Box
+        container
+        display="flex"
+        flexDirection="column"
+        justifyContent="center"
+        height='80%'
+        sx={styleSignUp}
+      >
+        <Grid
+          container
+          justifyContent='flex-end'
+
+        >
+          <Cross onClick={onClose} />
         </Grid>
-        
-        )} */}
+
+        {!isSubmitted ? (
+          <Grid
+            container
+            alignItems="center"
+            justifyContent="center"
+            direction="row"
+          >
+            <SignUp formHasBeenSubmit={formHasBeenSubmit} />
+          </Grid>
+        ) : (
+          <Grid container justifyContent="center"  alignItems="center">
+            <Typography
+              color="primary"
+              textTransform="uppercase"
+              p={3}
+              px={6}
+              fontWeight={600}
+              textAlign="center"
+              backgroundColor="rgba(1, 147, 124, 0.2)"
+              mb={5}
+              style={{
+                borderStyle: 'solid',
+                borderColor: 'primary',
+                borderRadius: 5,
+              }}
+            >
+              Your account has been created ! <br /> Welcome to Green Cottages{' '}
+            </Typography>
+            <Login marginButton={4} marginTitle={4} marginTextField={1.5} size={'large'} />
+          </Grid>
+        )}
       </Box>
     </StyledModal>
   )

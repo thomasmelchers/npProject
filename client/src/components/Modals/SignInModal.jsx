@@ -2,6 +2,8 @@ import React from 'react';
 import Login from '../Login/Login'
 import { Box, styled } from '@mui/system'
 import ModalUnstyled from '@mui/base/ModalUnstyled';
+import Cross from './ CrosstoClose'
+import { Grid } from '@mui/material';
 
 const SignInModal = ({open, onClose}) => {
 
@@ -31,6 +33,7 @@ const SignInModal = ({open, onClose}) => {
   const styleSignIn = {
     bgcolor: 'white',
     borderRadius: 3,
+    position:'relative',
     p: 2,
     px: 4,
     pb: 4,
@@ -49,6 +52,13 @@ const SignInModal = ({open, onClose}) => {
     BackdropComponent={Backdrop}
   >
     <Box sx={styleSignIn}>
+    <Grid
+          container
+          justifyContent='flex-end'
+
+        >
+          <Cross onClick={onClose} />
+        </Grid>
       <Login />
     </Box>
   </StyledModal>);
