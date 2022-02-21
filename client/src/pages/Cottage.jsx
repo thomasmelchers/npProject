@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from 'react'
-import SearchBar from '../components/SearchBar/SearchBar'
 import { Typography, Grid, Container, Paper } from '@mui/material'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
