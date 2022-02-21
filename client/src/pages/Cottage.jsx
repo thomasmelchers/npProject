@@ -10,9 +10,8 @@ import Map from 'react-map-gl'
 import maplibregl from 'maplibre-gl'
 import ButtonMui from '../components/Button/Button'
 import TextForm from '../components/FormComponents/TextForm'
-import getComments from '../actions/useEffect'
 import averageRatings from '../actions/averageRatings'
-import useGeoData from '../components/Card/useGeoData'
+
 
 // ICONS
 import SpaIcon from '@mui/icons-material/Spa'
