@@ -69,7 +69,6 @@ const useSignUpForm = (callback, validate) => {
     [errors]
   );
 
-  console.log (isSubmitting)
   return {handleChange, values, handleSumit, errors, isSubmitting}
 }
 

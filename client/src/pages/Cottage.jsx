@@ -12,11 +12,13 @@ import ButtonMui from '../components/Button/Button'
 import TextForm from '../components/FormComponents/TextForm'
 import getComments from '../actions/useEffect'
 import averageRatings from '../actions/averageRatings'
+import useGeoData from '../components/Card/useGeoData'
 
 // ICONS
 import SpaIcon from '@mui/icons-material/Spa'
 import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
 import StarIcon from '@mui/icons-material/Star';
+
 
 const Cottage = () => {
   // ABOUT USER
@@ -49,33 +51,63 @@ const Cottage = () => {
   // ABOUT COTTAGE
   const { id } = useParams()
 
-  /* const [accomodation, setAccomodation] = useState({})
-
-  const getAccomodationsData = async () => {
-    const data = await axios
-      .get(`${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`)
-      .then((res) => setAccomodation(res.data.data.accomodation))
-  }
-  useEffect(() => {
-    getAccomodationsData()
-  }, []) */
-
-  const url = `${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`
-  const [accomodation, setAccomodation] = useState({})
-
-  useEffect(() => {
-    axios.get(url).then((res) => setAccomodation(res.data.data.accomodation))
-  }, [url])
-
+  const [accomodation, setAccomodation] = useState('')
   const [location, setLocation] = useState('')
+  const [country, setCountry] = useState('')
+  const [lat, setLat] = useState('')
+  const [lon, setLon] = useState('')
 
-  const handleLocation = () => {
-    setLocation(accomodation.city)
+  const getAcc = async () => {
+    const data = await axios.get(
+      `${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`
+    )
+    setAccomodation(data.data.data.accomodation)
   }
 
   useEffect(() => {
-    handleLocation()
+    getAcc()
+    return accomodation
   }, [])
+
+  useEffect(() =>{
+    setLocation(accomodation.city)
+    setCountry(accomodation.country)
+    return [location, country]
+  }, [accomodation])
+
+  console.log(location)
+
+    const geoData = async () => {
+      const data = await axios.get(
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&type=place&limit=1&access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew`
+        )
+        .then((res) => {setLat(res.data.features[0].center[0]) 
+          setLon(res.data.features[0].center[1])})
+      }
+    
+      useEffect(() => {
+        geoData()
+      }, [location, country])
+  
+ // MAPBOX
+ const [viewport, setViewport] = useState({
+  /* latitude: lon & lon,
+  longitude: lat & lat,
+  zoom: 6,
+  width: '100%',
+  height: '100%', */
+})
+console.log(viewport.latitude)
+
+const handleViewport = async () => {
+  await setViewport({latitude: lat, longitude: lon, zoom: 6, width: '100%', height: '100%'})
+}
+
+useEffect(() =>{
+  handleViewport()
+}, [lat, lon])
+console.log(viewport)
+  
 
   // AVERAGE RATINGS
   const [average, setAverage] = useState('')
@@ -87,40 +119,6 @@ const Cottage = () => {
   useEffect(()=> {
     handleAverage()
   })
-
-  console.log(average)
-
-  /* const location = accomodation && accomodation.city */
-  const country = accomodation.country && accomodation.country
-  console.log(country)
-  const [fetchData, setFetchData] = useState({})
-
-  // GEO DATA
-  const geoData = async () => {
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&types=place&limit=1&access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew`
-    )
-    const data = await response.json()
-    setFetchData(data)
-  }
-
-  useEffect(() => {
-    geoData()
-  }, [])
-  // MAPBOX
-  const [viewport, setViewport] = useState({
-    latitude: 23,
-    longitude: -12,
-    zoom: 6,
-    width: '100%',
-    height: '100%',
-  })
-
-  
-
-  //COMMENTS
-  const {data} = getComments(`${process.env.REACT_APP_API_URL}api/v1/comments/`)
-  console.log(data)
 
   // PRICE PER NIGHT
   const [night, setNight] = useState(0)

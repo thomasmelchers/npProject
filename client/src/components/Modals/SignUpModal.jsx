@@ -48,7 +48,6 @@ const SignUpModal = ({ open, onClose }) => {
   const formHasBeenSubmit = () => {
     setIsSubmitted(true)
   }
-  console.log(isSubmitted)
 
   return (
     <StyledModal

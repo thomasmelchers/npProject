@@ -30,13 +30,14 @@ const Dashboard = () => {
   const userId = {
     id: '',
   }
-  const [user, setUser] = useState([])
+  
 
   if (isToken) {
     const decodedToken = jwt_decode(isToken)
     userId.id = decodedToken.id
   }
-
+  
+  const [user, setUser] = useState([])
   const getUserData = async () => {
     const data = await axios.get(
       `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
@@ -62,6 +63,8 @@ const Dashboard = () => {
   useEffect(() => {
     getAccomodation()
   }, [])
+
+  console.log(accomodationByUser)
 
   // AVERAGE RATINGS
   const [average, setAverage] = useState('')
