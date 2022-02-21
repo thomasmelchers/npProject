@@ -81,8 +81,8 @@ const Cottage = () => {
       const data = await axios.get(
           `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&type=place&limit=1&access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew`
         )
-        .then((res) => {setLat(res.data.features[0].center[0]) 
-          setLon(res.data.features[0].center[1])})
+        .then((res) => {setLon(res.data.features[0].center[0]) 
+          setLat(res.data.features[0].center[1])})
       }
     
       useEffect(() => {
@@ -91,16 +91,11 @@ const Cottage = () => {
   
  // MAPBOX
  const [viewport, setViewport] = useState({
-  /* latitude: lon & lon,
-  longitude: lat & lat,
-  zoom: 6,
-  width: '100%',
-  height: '100%', */
 })
 console.log(viewport.latitude)
 
 const handleViewport = async () => {
-  await setViewport({latitude: lat, longitude: lon, zoom: 6, width: '100%', height: '100%'})
+  await setViewport({latitude: lat, longitude: lon, zoom: 10, width: '100%', height: '100%'})
 }
 
 useEffect(() =>{
