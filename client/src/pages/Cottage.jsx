@@ -79,7 +79,7 @@ const Cottage = () => {
 
     const geoData = async () => {
       const data = await axios.get(
-          `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&type=place&limit=1&access_token=pk.eyJ1Ijoidm95YWdlc2xhbGFudGhhMTk4NyIsImEiOiJja3hkYjB4bGswYzFvMnFuNGZ6OGo3YWNoIn0.n9SsSfkBoyKyY5gmgg3aew`
+          `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?country=${country}&type=place&limit=1&access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
         )
         .then((res) => {setLon(res.data.features[0].center[0]) 
           setLat(res.data.features[0].center[1])})
