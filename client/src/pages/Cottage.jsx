@@ -5,12 +5,16 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import AuthContext from '../context/AuthContext'
 import InfoCottage from '../components/Typography/InfoCottage'
-import Map from 'react-map-gl'
-import maplibregl from 'maplibre-gl'
 import ButtonMui from '../components/Button/Button'
 import TextForm from '../components/FormComponents/TextForm'
 import averageRatings from '../actions/averageRatings'
 
+// MAPBOX
+import Map from 'react-map-gl'
+import mapboxgl from "mapbox-gl"
+import maplibregl from 'maplibre-gl'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default
 
 // ICONS
 import SpaIcon from '@mui/icons-material/Spa'
