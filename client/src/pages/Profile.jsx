@@ -42,7 +42,6 @@ const Profile = () => {
 
     const firstnameValue = user.firstname
     const nameValue = user.name
-    const DOBValue = user.dateOfBirth
     const genderValue = user.gender
     const addressValue = user.address
     const numberValue = user.number
@@ -50,6 +49,17 @@ const Profile = () => {
     const cityValue = user.city
     const countryValue = user.country
     const emailValue = user.email
+
+    // DATE
+
+  const [DOBValue, setDOBValue] = useState('')
+
+  const handleDate = () => {
+      setDOBValue(new Date(user.dateOfBirth).toDateString())
+  }
+  useEffect(() => {
+    handleDate()
+  }, [user])
 
   return (
     <main>
