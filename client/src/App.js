@@ -31,11 +31,13 @@ function App() {
           <Route path="/cottage/:id" element={<Cottage />} />
           <Route path="/accomodations" element={<Accomodations />} />
 
-          {isLoggedIn ? (
+          {isLoggedIn && 
             <Route path="/manage-my-cottage/:id" element={<ManageMyCottage />} />
-          ) : (
-            <Route path="/" element={<Home />} />
-          )}
+           }
+          
+          {isLoggedIn && 
+            <Route path="/add-my-cottage/" element={<AddCottage />} />
+           }
 
           {isLoggedIn ? (
             <Route path="/dashboard/" element={<Dashboard />} />

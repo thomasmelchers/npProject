@@ -1,7 +1,6 @@
 import {
   Grid,
   Paper,
-  ThemeProvider,
   TextField,
   FormControl,
   FormLabel,
@@ -10,11 +9,9 @@ import {
   FormControlLabel,
   MenuItem,
   Box,
-  Avatar,
   Typography,
 } from '@mui/material'
 import React, { useState, useContext } from 'react'
-import customTheme from '../../assets/theme'
 import TextForm from '../FormComponents/TextForm'
 import AuthContext from '../../context/AuthContext'
 import ButtonMui from '../../components/Button/Button'
@@ -145,7 +142,7 @@ const ProfileForm = (props) => {
   }
 
   return (
-    <ThemeProvider theme={customTheme}>
+    <div>
       <Box mb={3}>
         <Paper variant="outlined">
           <Grid container justifyContent="center" spacing={2} p={5}>
@@ -309,7 +306,7 @@ const ProfileForm = (props) => {
                       <MenuItem
                         key={pos}
                         value={item}
-                        color={customTheme.palette.primary.main}
+                        color='primary'
                       >
                         {countries[item]}
                       </MenuItem>
@@ -398,7 +395,7 @@ const ProfileForm = (props) => {
           </Paper>
         </Box>
       </Box>
-    </ThemeProvider>
+      </div>
   )
 }
 

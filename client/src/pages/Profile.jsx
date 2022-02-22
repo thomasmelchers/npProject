@@ -1,15 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react'
 import {
-  ThemeProvider,
   Container,
   Paper,
   Grid,
   Typography,
-  Avatar,
 } from '@mui/material'
-import customTheme from '../assets/theme'
 import AuthContext from '../context/AuthContext'
-import ButtonMui from '../components/Button/Button'
 import ProfileForm from '../components/ProfileForm/ProfileForm'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
@@ -63,7 +59,7 @@ const Profile = () => {
 
   return (
     <main>
-      <ThemeProvider theme={customTheme}>
+      
         <Container>
           <Grid container mt={15} mb={5}>
             <Grid item xs={12}>
@@ -91,7 +87,7 @@ const Profile = () => {
             </Grid>
           </Grid>
         </Container>
-      </ThemeProvider>
+      
     </main>
   )
 }
