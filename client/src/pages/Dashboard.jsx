@@ -19,6 +19,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import averageRatings from '../actions/averageRatings'
 import InfoCottage from '../components/Typography/InfoCottage'
+import useDateFormat from '../actions/useDateFormat'
 
 const Dashboard = () => {
 
@@ -64,7 +65,16 @@ const Dashboard = () => {
     getAccomodation()
   }, [])
 
-  console.log(accomodationByUser)
+  // DATE
+
+  const [newDate, setNewDate] = useState('')
+
+  const handleDate = () => {
+      setNewDate(new Date(user.createdAt).toDateString())
+  }
+  useEffect(() => {
+    handleDate()
+  }, [user])
 
   // AVERAGE RATINGS
   const [average, setAverage] = useState('')
@@ -95,7 +105,7 @@ const Dashboard = () => {
                   Hi {user.firstname}
                 </Typography>
                 <Typography mt={2}>
-                  <span color="primary"> Member since: </span> {user.createdAt}
+                  <span color="primary"> Member since: </span> {newDate}
                 </Typography>
               </Grid>
 
