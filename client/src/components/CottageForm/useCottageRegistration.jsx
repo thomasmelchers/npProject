@@ -80,8 +80,8 @@ const useCottageRegistration = (callback, validate) => {
     useEffect(
         () => {
             if (Object.keys(errors).length === 0 && isSubmitting && accomodation) {
-                /* window.location = `/cottage/${accomodation._id}` */
-                callback(accomodation)
+                window.location = `/cottage/${accomodation._id}`
+                /* callback() */
               }
         },
         [errors]
