@@ -112,6 +112,7 @@ const CottageRegistration = () => {
                           name={'pricePerNight'}
                           type={'number'}
                           fullwidth
+                          min={'0'}
                           required={true}
                           value={values.pricePerNight}
                           onChange={handleChange}

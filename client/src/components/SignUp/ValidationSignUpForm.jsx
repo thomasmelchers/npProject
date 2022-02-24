@@ -40,6 +40,9 @@ export default function validationSignUpForm(values) {
   if (!values.number.trim()) {
     errors.number = 'Number required'
   }
+  if(values.number<0){
+    errors.number = 'Are you sure about the number?'
+}
 
   if (!values.postcode.trim()) {
     errors.postcode = 'Postcode required'
@@ -48,6 +51,9 @@ export default function validationSignUpForm(values) {
   if (!values.city.trim()) {
     errors.city = 'Location required'
   }
+  if(values.city.length>163){
+    errors.city = 'This location doesn\'t exist'
+}
 
   if (!values.country) {
     errors.country = 'Country required'

@@ -3,7 +3,7 @@ export default function validationCottageRegistration(values){
 
     // COTTAGENAME
     
-    if (!values.cottageName){
+    if (!values.cottageName.trim()){
         errors.cottageName = 'What is the name of your cottage'
     }
 
@@ -13,7 +13,7 @@ export default function validationCottageRegistration(values){
 
     // TYPE OF COTTAGE
 
-    if (!values.typeOfCottage){
+    if (!values.typeOfCottage.trim()){
         errors.typeOfCottage = 'The type of Cottage is required'
     }
 
@@ -28,7 +28,7 @@ export default function validationCottageRegistration(values){
 
     // ADDRESS
 
-    if (!values.address){
+    if (!values.address.trim()){
         errors.address = 'The address of the cottage is required'
     }
     if(values.address.length>100){
@@ -37,19 +37,22 @@ export default function validationCottageRegistration(values){
 
     // NUMBER
 
-    if (!values.number){
+    if (!values.number.trim()){
         errors.number = 'The number where is located the cottage is required'
+    }
+    if(values.number<0){
+        errors.number = 'Are you sure about the number?'
     }
 
     // POSTCODE
 
-    if (!values.postcode){
+    if (!values.postcode.trim()){
         errors.postcode = 'The postcode is required'
     }
 
     // CITY
 
-    if (!values.city){
+    if (!values.city.trim()){
         errors.city = 'The city is required'
     }
     if(values.city.length>163){
@@ -58,7 +61,7 @@ export default function validationCottageRegistration(values){
 
     // COUNTRY
 
-    if (!values.country){
+    if (!values.country.trim()){
         errors.country = 'The country is required'
     }
 
