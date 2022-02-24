@@ -1,4 +1,4 @@
-import { Grid, Typography, Paper, Box, TextareaAutosize, TextField} from '@mui/material'
+import { Grid, Typography, Paper, Box, TextareaAutosize, Select, FormControl, InputLabel, MenuItem} from '@mui/material'
 import React from 'react'
 import TextForm from '../FormComponents/TextForm'
 import AddressForm from '../FormComponents/AddressForm'
@@ -92,7 +92,29 @@ const CottageRegistration = () => {
                       </Grid>
 
                       <Grid item xs={12}>
-                        <TextForm
+                      <FormControl fullWidth>
+  <InputLabel id={'Type of Cottage'}>Type of Cottage</InputLabel>
+  <Select
+    labelId={'Type of Cottage'}
+    id={'typeOfCottage'}
+    name={'typeOfCottage'}
+    fullwidth
+    required={true}
+    label={'Type of Cottage'}
+    value={values.typeOfCottage}
+    onChange={handleChange}
+  >
+    <MenuItem value={'cottage'}>Cottage</MenuItem>
+    <MenuItem value={'lodge'}>Lodge</MenuItem>
+    <MenuItem value={'hut'}>Hut</MenuItem>
+    <MenuItem value={'tepee'}>Tepee</MenuItem>
+    <MenuItem value={'yurt'}>Yurt</MenuItem>
+    <MenuItem value={'bed & breakfast'}>Bed & Breakfast</MenuItem>
+    <MenuItem value={'treehouse'}>Treehouse</MenuItem>
+    <MenuItem value={'caravan'}>Caravan</MenuItem>
+  </Select>
+</FormControl>
+                        {/* <TextForm
                           label={'Type of Cottage'}
                           id={'typeOfCottage'}
                           name={'typeOfCottage'}
@@ -101,7 +123,7 @@ const CottageRegistration = () => {
                           required={true}
                           value={values.typeOfCottage}
                           onChange={handleChange}
-                        ></TextForm>
+                        ></TextForm> */}
                         {errors.typeOfCottage && <Typography color='error'>{errors.typeOfCottage}</Typography>}
                       </Grid>
 
