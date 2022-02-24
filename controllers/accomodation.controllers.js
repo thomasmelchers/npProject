@@ -72,7 +72,7 @@ module.exports.createAccomodation = catchAsync(async (req, res, next) => {
 
     // Update User with the cottage ID
     const user = await UserModel.findById(req.body.user_id)
-    user.accomodationOwned = newAccomodation._id
+    user.accomodationOwned.push(newAccomodation._id)
     user.save()
 
     res.status(201).json({
