@@ -53,6 +53,7 @@ const Dashboard = () => {
   // DATA ACCOMODATIONS
 
   const [accomodationByUser, setAccomodationByUser] = useState('')
+  console.log(accomodationByUser)
 
   const getAccomodation = async () => {
     const data = await axios.get(
@@ -295,13 +296,13 @@ const Dashboard = () => {
 
                 {accomodationByUser &&
                   accomodationByUser.map((e, index) => (
-                    <Grid item xs={12} key={index}>
+                    <Grid item xs={12} key={index} mt={2}>
                       <Paper variant="outlined" borderColor="secondary">
                         <Grid container padding={3}>
                           <Grid item xs={12} md={5}>
                             <img
                               src={'/images/accomodations/faro.jpg'}
-                              label={accomodationByUser[0].cottageName}
+                              label={e.cottageName}
                               width="100%"
                               height="100%"
                             />
@@ -314,7 +315,7 @@ const Dashboard = () => {
                                   color="primary"
                                   textTransform="uppercase"
                                 >
-                                  {accomodationByUser[0].cottageName}
+                                  {e.cottageName}
                                 </Typography>
                                 <Typography
                                   color="secondary"
@@ -322,14 +323,13 @@ const Dashboard = () => {
                                   fontWeight={500}
                                   mb={0.5}
                                 >
-                                  {' '}
-                                  {accomodationByUser[0].city} -{' '}
-                                  {accomodationByUser[0].country}
+                                  {e.city} - 
+                                  {e.country}
                                 </Typography>
                                 <InfoCottage
                                   valueLabel={'Price/Night:'}
                                   colorLabel={'primary'}
-                                  value={`${accomodationByUser[0].pricePerNight}€`}
+                                  value={`${e.pricePerNight}€`}
                                   colorValue={'black'}
                                 ></InfoCottage>
                                 <InfoCottage
@@ -342,7 +342,7 @@ const Dashboard = () => {
                                   display={{ xs: 'none', md: 'flex' }}
                                   valueLabel={'Nb of Comments:'}
                                   colorLabel={'primary'}
-                                  value={accomodationByUser[0].comments}
+                                  value={e.comments}
                                   colorValue={'black'}
                                 ></InfoCottage>
                                 <Typography
@@ -355,15 +355,15 @@ const Dashboard = () => {
                                 <Typography
                                   display={{ xs: 'flex', md: 'none' }}
                                 >
-                                  {' '}
-                                  {accomodationByUser[0].summary}
+
+                                  {e.summary}
                                 </Typography>
                                 <Typography
                                   display={{ xs: 'none', md: 'flex' }}
                                   textAlign="justify"
                                 >
-                                  {' '}
-                                  {accomodationByUser[0].description}
+
+                                  {e.description}
                                 </Typography>
                               </Grid>
 
@@ -372,7 +372,7 @@ const Dashboard = () => {
                                 <Grid container justifyContent={{xs:'center', md: 'space-around'}} alignItems={{xs: 'center'}}>
                                   <Grid item>
                                     <Link
-                                      href={`/cottage/${accomodationByUser[0]._id}`}
+                                      href={`/cottage/${e._id}`}
                                       underline="none"
                                     >
                                       <ButtonMui
@@ -382,7 +382,7 @@ const Dashboard = () => {
                                   </Grid>
                                   <Grid item mt={{xs: 3, md: 0}}>
                                     <Link
-                                      href={`/manage-my-cottage/${accomodationByUser[0]._id}`}
+                                      href={`/manage-my-cottage/${e._id}`}
                                       underline="none"
                                     >
                                       <ButtonMui

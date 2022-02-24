@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Paper, Typography } from '@mui/material'
+import { Grid, Paper, Typography } from '@mui/material'
 import SpaIcon from '@mui/icons-material/Spa'
 import SpaOutlinedIcon from '@mui/icons-material/SpaOutlined'
 import AuthContext from '../../context/AuthContext'

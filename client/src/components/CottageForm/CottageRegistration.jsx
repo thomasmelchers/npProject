@@ -5,21 +5,47 @@ import AddressForm from '../FormComponents/AddressForm'
 import ButtonMui from '../Button/Button'
 import useCottageRegistration from './useCottageRegistration'
 import { useState } from 'react'
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
+import AuthContext from '../../context/AuthContext'
+import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 const CottageRegistration = () => {
 
-  const {handleChange, values} = useCottageRegistration()
+  
 
-  const [cot, setCot] = useState('')
+  // USER DATAS
+  const authContext = useContext(AuthContext)
+  const isLoggedIn = authContext.isLoggedIn
 
-  const handleChangec = e => {
-    setCot(e.target.value)
+  const isToken = localStorage.getItem('token')
+  const userId = {
+    id: '',
   }
+  
+
+  if (isToken) {
+    const decodedToken = jwt_decode(isToken)
+    userId.id = decodedToken.id
+  }
+  
+  const [user, setUser] = useState([])
+  const getUserData = async () => {
+    const data = await axios.get(
+      `${process.env.REACT_APP_API_URL}api/v1/users/${userId.id}`
+    )
+    setUser(data.data.data.user)
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  const {handleChange, values, handleSubmit} = useCottageRegistration()
 
   return (
     <Grid container direction="column">
-      <Box component="form" noValidate>
+      <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container mt={4}>
           <Paper variant="outlined">
 
@@ -103,7 +129,7 @@ const CottageRegistration = () => {
             addressLabel={'Address'}
             addressValue={values.address}
             numberLabel={'Number'}
-            numberLabel={values.number}
+            numberValue={values.number}
             postcodeLabel={'Postcode'}
             postcodeValue={values.postcode}
             cityLabel={'Location'}
