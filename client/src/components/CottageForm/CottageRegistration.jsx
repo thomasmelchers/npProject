@@ -1,4 +1,15 @@
-import { Grid, Typography, Paper, Box, TextareaAutosize, Select, FormControl, InputLabel, MenuItem} from '@mui/material'
+import {
+  Grid,
+  Typography,
+  Paper,
+  Box,
+  TextareaAutosize,
+  Select,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Link,
+} from '@mui/material'
 import React from 'react'
 import TextForm from '../FormComponents/TextForm'
 import AddressForm from '../FormComponents/AddressForm'
@@ -11,10 +22,7 @@ import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 import validate from './ValidationCottageRegistration'
 
-const CottageRegistration = () => {
-
-  
-
+const CottageRegistration = ({formHasBeenSubmit}) => {
   // USER DATAS
   const authContext = useContext(AuthContext)
   const isLoggedIn = authContext.isLoggedIn
@@ -23,13 +31,12 @@ const CottageRegistration = () => {
   const userId = {
     id: '',
   }
-  
 
   if (isToken) {
     const decodedToken = jwt_decode(isToken)
     userId.id = decodedToken.id
   }
-  
+
   const [user, setUser] = useState([])
   const getUserData = async () => {
     const data = await axios.get(
@@ -42,14 +49,19 @@ const CottageRegistration = () => {
     getUserData()
   }, [])
 
-  const {handleChange, values, handleSubmit, errors, isSubmitting} = useCottageRegistration(validate)
+  const {
+    handleChange,
+    values,
+    handleSubmit,
+    errors,
+    accomodation,
+  } = useCottageRegistration(/* formHasBeenSubmit, */ validate)
 
   return (
     <Grid container direction="column">
       <Box component="form" noValidate onSubmit={handleSubmit}>
         <Grid container mt={4}>
           <Paper variant="outlined">
-
             {/* COTTAGE INFOS */}
 
             <Grid container spacing={2} p={5}>
@@ -71,11 +83,7 @@ const CottageRegistration = () => {
                   ></Grid>
 
                   {/* INFO ABOUT COTTAGE */}
-                  <Grid
-                    item
-                    xs={12}
-                    md={6}
-                  >
+                  <Grid item xs={12} md={6}>
                     <Grid container justifyContent="center" spacing={3}>
                       <Grid item xs={12}>
                         <TextForm
@@ -88,43 +96,46 @@ const CottageRegistration = () => {
                           value={values.cottageName}
                           onChange={handleChange}
                         ></TextForm>
-                        {errors.cottageName && <Typography color='error'>{errors.cottageName}</Typography>}
+                        {errors.cottageName && (
+                          <Typography color="error">
+                            {errors.cottageName}
+                          </Typography>
+                        )}
                       </Grid>
 
                       <Grid item xs={12}>
-                      <FormControl fullWidth>
-  <InputLabel id={'Type of Cottage'}>Type of Cottage</InputLabel>
-  <Select
-    labelId={'Type of Cottage'}
-    id={'typeOfCottage'}
-    name={'typeOfCottage'}
-    fullwidth
-    required={true}
-    label={'Type of Cottage'}
-    value={values.typeOfCottage}
-    onChange={handleChange}
-  >
-    <MenuItem value={'cottage'}>Cottage</MenuItem>
-    <MenuItem value={'lodge'}>Lodge</MenuItem>
-    <MenuItem value={'hut'}>Hut</MenuItem>
-    <MenuItem value={'tepee'}>Tepee</MenuItem>
-    <MenuItem value={'yurt'}>Yurt</MenuItem>
-    <MenuItem value={'bed & breakfast'}>Bed & Breakfast</MenuItem>
-    <MenuItem value={'treehouse'}>Treehouse</MenuItem>
-    <MenuItem value={'caravan'}>Caravan</MenuItem>
-  </Select>
-</FormControl>
-                        {/* <TextForm
-                          label={'Type of Cottage'}
-                          id={'typeOfCottage'}
-                          name={'typeOfCottage'}
-                          type={'text'}
-                          fullwidth
-                          required={true}
-                          value={values.typeOfCottage}
-                          onChange={handleChange}
-                        ></TextForm> */}
-                        {errors.typeOfCottage && <Typography color='error'>{errors.typeOfCottage}</Typography>}
+                        <FormControl fullWidth>
+                          <InputLabel id={'Type of Cottage'}>
+                            Type of Cottage
+                          </InputLabel>
+                          <Select
+                            labelId={'Type of Cottage'}
+                            id={'typeOfCottage'}
+                            name={'typeOfCottage'}
+                            fullwidth
+                            required={true}
+                            label={'Type of Cottage'}
+                            value={values.typeOfCottage}
+                            onChange={handleChange}
+                          >
+                            <MenuItem value={'cottage'}>Cottage</MenuItem>
+                            <MenuItem value={'lodge'}>Lodge</MenuItem>
+                            <MenuItem value={'hut'}>Hut</MenuItem>
+                            <MenuItem value={'tepee'}>Tepee</MenuItem>
+                            <MenuItem value={'yurt'}>Yurt</MenuItem>
+                            <MenuItem value={'bed & breakfast'}>
+                              Bed & Breakfast
+                            </MenuItem>
+                            <MenuItem value={'treehouse'}>Treehouse</MenuItem>
+                            <MenuItem value={'caravan'}>Caravan</MenuItem>
+                          </Select>
+                        </FormControl>
+
+                        {errors.typeOfCottage && (
+                          <Typography color="error">
+                            {errors.typeOfCottage}
+                          </Typography>
+                        )}
                       </Grid>
 
                       <Grid item xs={12}>
@@ -139,7 +150,11 @@ const CottageRegistration = () => {
                           value={values.pricePerNight}
                           onChange={handleChange}
                         ></TextForm>
-                        {errors.pricePerNight && <Typography color='error'>{errors.pricePerNight}</Typography>}
+                        {errors.pricePerNight && (
+                          <Typography color="error">
+                            {errors.pricePerNight}
+                          </Typography>
+                        )}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -180,7 +195,6 @@ const CottageRegistration = () => {
                 <Typography variant="h4" color="primary">
                   Cottage's Descriptions
                 </Typography>
-                
               </Grid>
 
               <Grid item xs={12}>
@@ -194,7 +208,9 @@ const CottageRegistration = () => {
                   value={values.summary}
                   onChange={handleChange}
                 />
-                {errors.summary && <Typography color='error'>{errors.summary}</Typography>}
+                {errors.summary && (
+                  <Typography color="error">{errors.summary}</Typography>
+                )}
               </Grid>
 
               <Grid item xs={12}>
@@ -208,7 +224,9 @@ const CottageRegistration = () => {
                   value={values.description}
                   onChange={handleChange}
                 />
-                {errors.description && <Typography color='error'>{errors.description}</Typography>}
+                {errors.description && (
+                  <Typography color="error">{errors.description}</Typography>
+                )}
               </Grid>
 
               <Grid item xs={12} mt={4}>
