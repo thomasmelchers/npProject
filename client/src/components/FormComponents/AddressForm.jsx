@@ -8,14 +8,19 @@ const AddressForm = ({
   changeHandler,
   addressLabel,
   addressValue,
+  addressError,
   numberLabel,
   numberValue,
+  numberError,
   postcodeLabel,
   postcodeValue,
+  postcodeError,
   cityLabel,
   cityValue,
+  cityError,
   countryLabel,
   countryValue,
+  countryError,
 }) => {
 
   return (
@@ -36,6 +41,7 @@ const AddressForm = ({
             value={addressValue}
             onChange={changeHandler}
           />
+          {{addressError} && <Typography color='error'>{addressError}</Typography>}
         </Grid>
         <Grid item xs={3} md={4}>
           <TextForm
@@ -47,6 +53,7 @@ const AddressForm = ({
             value={numberValue}
             onChange={changeHandler}
           />
+          {{numberError} && <Typography color='error'>{numberError}</Typography>}
         </Grid>
         <Grid item xs={5} md={4}>
           <TextForm
@@ -58,6 +65,7 @@ const AddressForm = ({
             value={postcodeValue}
             onChange={changeHandler}
           />
+          {{postcodeError} && <Typography color='error'>{postcodeError}</Typography>}
         </Grid>
         <Grid item xs={7} md={4}>
           <TextForm
@@ -69,6 +77,7 @@ const AddressForm = ({
             value={cityValue}
             onChange={changeHandler}
           />
+          {{cityError} && <Typography color='error'>{cityError}</Typography>}
         </Grid>
         <Grid item xs={12} md={4}>
           <CountryForm
@@ -76,6 +85,7 @@ const AddressForm = ({
             countryValue={countryValue}
             countryOnChange={changeHandler}
           />
+          {{countryError} && <Typography color='error'>{countryError}</Typography>}
         </Grid>
       </Grid>
     </Paper>

@@ -57,7 +57,6 @@ const useSignUpForm = (callback, validate) => {
         data: user,
       })
 
-      /* window.location = '/' */
   }
 
   useEffect(

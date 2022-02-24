@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-const useCottageRegistration = () => {
+const useCottageRegistration = (validate) => {
     const isToken = localStorage.getItem('token')
     
     const userId = {
@@ -14,8 +14,17 @@ const useCottageRegistration = () => {
         
         userId.id = decodedToken.id
       }
+    
+    // To Grab the future data of the accomodation
+    const [accomodation, setAccomodation] = useState('')
 
+    // To catch the error
+    const [errors, setErrors] = useState ({})
 
+    // To set the status of the request
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    
+    // Set the input values
     const [values, setValues] = useState({
         cottageName: '', 
         typeOfCottage: '',
@@ -37,26 +46,26 @@ const useCottageRegistration = () => {
         })
     }
 
-    
-
+    // Send the data to the DB
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        const cottage = {
-            user_id: userId.id,
-            cottageName: values.cottageName,
-            typeOfCottage: values.typeOfCottage,
-            pricePerNight: values.pricePerNight,
-            address: values.address, 
-            number: values.number,
-            postcode: values.postcode,
-            city: values.city,
-            country: values.country,
-            summary: values.summary,
-            description: values.description
-        }
+        setErrors(validate(values))
+        setIsSubmitting(true)
 
-        console.log(cottage)
+        const cottage = {
+          user_id: userId.id,
+          cottageName: values.cottageName,
+          typeOfCottage: values.typeOfCottage,
+          pricePerNight: values.pricePerNight,
+          address: values.address,
+          number: values.number,
+          postcode: values.postcode,
+          city: values.city,
+          country: values.country,
+          summary: values.summary,
+          description: values.description,
+        }
 
         await axios({
             method: 'post',
@@ -64,9 +73,22 @@ const useCottageRegistration = () => {
             headers: { Authorization: `Bearer ${isToken}` },
             data: cottage,
         })
+        .then ((res) => setAccomodation(res.data.data.accomdation))
+
+        /* await window.location = `/cottage/${accomodation._id}` */
+        
     }
 
-    return {handleChange, values, handleSubmit}
+    useEffect(
+        () => {
+          if (Object.keys(errors).length === 0 && isSubmitting) {
+            /* callback() */;
+          }
+        },
+        [errors]
+      );
+
+    return {handleChange, values, handleSubmit, errors, isSubmitting}
 }
 
 export default useCottageRegistration

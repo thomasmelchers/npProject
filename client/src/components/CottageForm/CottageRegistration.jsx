@@ -9,6 +9,7 @@ import { useEffect, useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
+import validate from './ValidationCottageRegistration'
 
 const CottageRegistration = () => {
 
@@ -41,7 +42,7 @@ const CottageRegistration = () => {
     getUserData()
   }, [])
 
-  const {handleChange, values, handleSubmit} = useCottageRegistration()
+  const {handleChange, values, handleSubmit, errors, isSubmitting} = useCottageRegistration(validate)
 
   return (
     <Grid container direction="column">
@@ -87,6 +88,7 @@ const CottageRegistration = () => {
                           value={values.cottageName}
                           onChange={handleChange}
                         ></TextForm>
+                        {errors.cottageName && <Typography color='error'>{errors.cottageName}</Typography>}
                       </Grid>
 
                       <Grid item xs={12}>
@@ -100,6 +102,7 @@ const CottageRegistration = () => {
                           value={values.typeOfCottage}
                           onChange={handleChange}
                         ></TextForm>
+                        {errors.typeOfCottage && <Typography color='error'>{errors.typeOfCottage}</Typography>}
                       </Grid>
 
                       <Grid item xs={12}>
@@ -113,6 +116,7 @@ const CottageRegistration = () => {
                           value={values.pricePerNight}
                           onChange={handleChange}
                         ></TextForm>
+                        {errors.pricePerNight && <Typography color='error'>{errors.pricePerNight}</Typography>}
                       </Grid>
                     </Grid>
                   </Grid>
@@ -128,15 +132,20 @@ const CottageRegistration = () => {
             title={'Location Informations'}
             addressLabel={'Address'}
             addressValue={values.address}
+            addressError={errors.address}
             numberLabel={'Number'}
             numberValue={values.number}
+            numberError={errors.number}
             postcodeLabel={'Postcode'}
             postcodeValue={values.postcode}
+            postcodeError={errors.postcode}
             cityLabel={'Location'}
             cityValue={values.city}
+            cityError={errors.city}
             countryLabel={'Country'}
             countryValue={values.country}
             changeHandler={handleChange}
+            countryError={errors.country}
           ></AddressForm>
         </Box>
 
@@ -148,6 +157,7 @@ const CottageRegistration = () => {
                 <Typography variant="h4" color="primary">
                   Cottage's Descriptions
                 </Typography>
+                
               </Grid>
 
               <Grid item xs={12}>
@@ -161,6 +171,7 @@ const CottageRegistration = () => {
                   value={values.summary}
                   onChange={handleChange}
                 />
+                {errors.summary && <Typography color='error'>{errors.summary}</Typography>}
               </Grid>
 
               <Grid item xs={12}>
@@ -174,6 +185,7 @@ const CottageRegistration = () => {
                   value={values.description}
                   onChange={handleChange}
                 />
+                {errors.description && <Typography color='error'>{errors.description}</Typography>}
               </Grid>
 
               <Grid item xs={12} mt={4}>
