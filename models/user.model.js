@@ -57,6 +57,7 @@ const userSchema = new mongoose.Schema(
     },
     number: {
       type: Number,
+      min: 0,
       required: [
         true,
         'The number of the building where you live is mandatory to register',

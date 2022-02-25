@@ -37,6 +37,7 @@ const accomodationSchema = new mongoose.Schema({
   number: {
     type: Number,
     required: [true, 'The number of the building is mandatory to register'],
+    min: 0,
     trim: true,
   },
   postcode: {
@@ -62,6 +63,7 @@ const accomodationSchema = new mongoose.Schema({
   },
   pricePerNight:{
     type: Number,
+    min: 0,
     required: [true, 'A price per Night is mandatory to register your cottage']
   },
   summary: {
