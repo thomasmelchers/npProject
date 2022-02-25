@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
-const useCottageRegistration = (callback, validate) => {
+const useCottageRegistration = (/* callback, */ validate) => {
     const isToken = localStorage.getItem('token')
     
     const userId = {
