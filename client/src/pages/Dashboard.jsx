@@ -19,7 +19,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import averageRatings from '../actions/averageRatings'
 import InfoCottage from '../components/Typography/InfoCottage'
-import useDateFormat from '../actions/useDateFormat'
 
 const Dashboard = () => {
 
@@ -390,8 +389,20 @@ const Dashboard = () => {
                           </Grid>
                         </Grid>
                       </Paper>
-                    </Grid>
+                    </Grid> 
                   ))}
+
+                  <Grid item xs={12} mt={5}>
+                  <Grid container justifyContent="center">
+                    <Link href={`/add-my-cottage/`} underline="none">
+                      <ButtonMui
+                        size={'large'}
+                        buttonName={'Add a new Cottage'}
+                      ></ButtonMui>
+                    </Link>
+                  </Grid>
+                </Grid>
+
               </Grid>
             ) : (
               <Grid container mt={5} p={5}>

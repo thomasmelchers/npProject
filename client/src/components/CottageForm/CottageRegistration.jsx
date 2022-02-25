@@ -60,7 +60,8 @@ const CottageRegistration = ({formHasBeenSubmit}) => {
   return (
     <Grid container direction="column">
       <Box component="form" noValidate onSubmit={handleSubmit}>
-        <Grid container mt={4}>
+        <Box mt={4}>
+
           <Paper variant="outlined">
             {/* COTTAGE INFOS */}
 
@@ -162,7 +163,7 @@ const CottageRegistration = ({formHasBeenSubmit}) => {
               </Grid>
             </Grid>
           </Paper>
-        </Grid>
+        </Box>
 
         {/* ADDRESS INFO */}
         <Box mt={3}>
