@@ -276,7 +276,7 @@ const Dashboard = () => {
         {/*  ----------------------- HOST SECTION - COTTAGE MANAGING  - START ---------------------- */}
         {user.role === 'host' && (
           <Paper elevation={5}>
-            {!accomodationByUser === null ? (
+            {!accomodationByUser == '' ? (
               <Grid container mt={5} p={5}>
                 <Grid item xs={12}>
                   <Typography variant="h4" mb={5} color="secondary">
