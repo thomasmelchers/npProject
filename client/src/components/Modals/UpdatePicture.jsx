@@ -1,22 +1,18 @@
 import React from 'react'
-import { styled } from '@mui/system'
-import ModalUnstyled from '@mui/base/ModalUnstyled'
 import {
-  Modal,
   Box,
-  Typography,
   Grid,
-  ThemeProvider,
   Avatar,
 } from '@mui/material'
-import customTheme from '../../assets/theme'
 import ButtonMui from '../Button/Button'
 import { useState } from 'react'
 import axios from 'axios'
 
 const UpdatePicture = (props) => {
   const userId = props.userId
-  const userPicture = props.userPicture
+  /* const [userPicture, setUserPicture] = useState(props.userPicture) */
+  const userPicture = (props.userPicture)
+  console.log(userPicture)
 
   const [file, setFile] = useState('')
   console.log(file)
@@ -24,6 +20,7 @@ const UpdatePicture = (props) => {
   const OnInputChange = (event) => {
     setFile(event.target.files[0])
   }
+
 
   const submitHandler = async (event) => {
     event.preventDefault()
@@ -52,7 +49,6 @@ const UpdatePicture = (props) => {
   }
 
   return (
-    <ThemeProvider theme={customTheme}>
       <Grid
         container
         direction="row"
@@ -94,7 +90,6 @@ const UpdatePicture = (props) => {
           </Box>
         </Grid>
       </Grid>
-    </ThemeProvider>
   )
 }
 

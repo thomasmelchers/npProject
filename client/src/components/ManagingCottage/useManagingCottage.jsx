@@ -1,11 +1,13 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
-import { useNavigate } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
-const useCottageRegistration = (validate) => {
+const useManagingCottage = (validate) => {
+
+    const {id} = useParams()
     const isToken = localStorage.getItem('token')
-    const navigate = useNavigate()
+    
     const userId = {
         id: '',
     }
@@ -15,16 +17,12 @@ const useCottageRegistration = (validate) => {
         
         userId.id = decodedToken.id
       }
-    
-    // To Grab the future data of the accomodation
-    const [accomodation, setAccomodation] = useState('')
-
     // To catch the error
     const [errors, setErrors] = useState ({})
 
     // To set the status of the request
     const [isSubmitting, setIsSubmitting] = useState(false)
-    
+
     // Set the input values
     const [values, setValues] = useState({
         cottageName: '', 
@@ -47,8 +45,8 @@ const useCottageRegistration = (validate) => {
         })
     }
 
-    // Send the data to the DB
-    const handleSubmit = async (e) => {
+      // Send the data to the DB
+      const handleSubmit = async (e) => {
         e.preventDefault()
 
         setErrors(validate(values))
@@ -67,27 +65,19 @@ const useCottageRegistration = (validate) => {
           description: values.description,
         }
 
+        console.log(cottage)
+
         const data = await axios({
-            method: 'post',
-            url: `${process.env.REACT_APP_API_URL}api/v1/accomodations`,
+            method: 'patch',
+            url: `${process.env.REACT_APP_API_URL}api/v1/accomodations/${id}`,
             headers: { Authorization: `Bearer ${isToken}` },
             data: cottage,
         })
-        setAccomodation(data.data.data.accomodation)
+
         setIsSubmitting(true)
     }
 
-    console.log(accomodation)
-    useEffect(
-        () => {
-            if (Object.keys(errors).length === 0 && isSubmitting && accomodation) {
-                navigate(`/cottage/${accomodation._id}`)
-              }
-        },
-        [errors]
-      );
-
-    return {handleChange, values, handleSubmit, errors, isSubmitting, accomodation}
+    return {values, handleChange, handleSubmit, errors}
 }
 
-export default useCottageRegistration
+export default useManagingCottage
