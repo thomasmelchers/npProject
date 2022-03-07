@@ -23,4 +23,4 @@ The goal of this application is to help visitors and hosts of eco-friendly accom
 - Mongoose
 - React
 - Material UI
-- MapBox
+- MapBox API
